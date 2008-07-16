@@ -24,13 +24,13 @@ Possible use cases are:
 Example
 -------
 
-Kupu editor text::
+You write in Kupu::
 
   Hello user!
   
   Please select one course from below:
   
-  $folder_list("/courses/marketing")
+  $folder_list("courses")
  
 will result to the output::
 
@@ -38,11 +38,11 @@ will result to the output::
   
   Please select one course from below:
   
-  * Marketing
+  * `Math <http://>`_
   
-  * Management
+  * `Marketing <http://>`_
   
-  * Plone development
+  * `Chemistry <http://>`_
 
 Status
 ------
