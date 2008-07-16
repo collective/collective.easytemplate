@@ -11,12 +11,13 @@ __docformat__ = 'epytext'
 __copyright__ = "2008 Red Innovation Ltd."
 __license__ = "GPL"
 
-def list_folder(folder, title=None, filters={}):
+def list_folder(folder, title=None, exclude_self=True, filters={}):
     """ List folder contents as bulleted link list. 
     
     @param folder: slashed path to the folder on the site, starting from the site root. No initial slash.
     @param title: optional <h3> level subheading which is shown if the folder contains at least one item
     @param filter: optional content type mask. only this type of content items is shown.
+    @param exclude_self: Do not list the current context
     """
     context = list_folder.namespace["context"]
     # you know some object which is refered as "context"
@@ -49,6 +50,8 @@ def list_folder(folder, title=None, filters={}):
     output += """<ul class="folder-list">"""
     
     for item in items:
+        if exclude_self and item.getURL() == context.absolute_url():
+            continue
         output += """<li><a href="%s">%s</a></li>""" % (item.getURL(), item["Title"])
         
     output += """</ul>"""

@@ -1,18 +1,13 @@
 """Main product initializer
 """
 
-from zope.i18nmessageid import MessageFactory
 from collective.easytemplate import config
 
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
 from Products.CMFCore.permissions import setDefaultRoles
 
-# Define a message factory for when this product is internationalised.
-# This will be imported with the special name "_" in most modules. Strings
-# like _(u"message") will then be extracted by i18n tools for translation.
-
-easytemplateMessageFactory = MessageFactory('collective.easytemplate')
+from content import TemplatedDocument
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
@@ -31,8 +26,6 @@ def initialize(context):
     # course, even if we import the module several times, it is only run
     # once.
     
-    from content import TemplatedDocument
-
     content_types, constructors, ftis = atapi.process_types(
         atapi.listTypes(config.PROJECTNAME),
         config.PROJECTNAME)
@@ -50,3 +43,8 @@ def initialize(context):
             permission         = config.ADD_CONTENT_PERMISSIONS[atype.portal_type],
             extra_constructors = (constructor,),
             ).initialize(context)
+            
+
+
+
+    

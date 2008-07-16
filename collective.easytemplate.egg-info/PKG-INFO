@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: collective.easytemplate
-Version: 0.1dev
+Version: 0.1dev-r0
 Summary: UNKNOWN
 Home-page: http://svn.plone.org/svn/collective/collective.easytemplate
 Author: Mikko Ohtamaa
@@ -10,6 +10,7 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         collective.easytemplate allows safe template tags inside Kupu editable text or any user editable HTML.
         This enables automatic content generation inside user editable HTML pages.
         
+        `Product homepage <http://plone.org/products/easy-template>`_
         Change history
         **************
         
@@ -50,13 +51,13 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         Example
         -------
         
-        Kupu editor text::
+        You write in Kupu::
         
         Hello user!
         
         Please select one course from below:
         
-        $folder_list("/courses/marketing")
+        $folder_list("courses")
         
         will result to the output::
         
@@ -64,11 +65,11 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         
         Please select one course from below:
         
-        * Marketing
+        * `Math <http://example.example>`_
         
-        * Management
+        * `Marketing <http://example.example>`_
         
-        * Plone development
+        * `Chemistry <http://example.example>`_
         
         Status
         ------
@@ -89,7 +90,6 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         Add to your buildout::
         
         eggs =
-        Cheetah
         collective.easytemplate
         
         zcml =
@@ -101,6 +101,9 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         -----
         
         Use content type "Templated Document" whenever you want to use template tags in Kupu content.
+        
+        If you get errors in your template code, you can toggle on "Catch errors" on Template schemata
+        and view detailed exception tracebacks in Zope log.
         
         Available tags
         --------------
@@ -135,8 +138,8 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         
         Print portal absolute URL. Useful for links.
         
-        Register tags
-        -------------
+        Registering new tags
+        --------------------
         
         If you want to add your own tags they must be added to Cheetah template namespace::
         

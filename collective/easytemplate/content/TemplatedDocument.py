@@ -25,11 +25,15 @@ from Products.ATContentTypes.content.document import ATDocument
 from Products.ATContentTypes.content.document import ATDocumentSchema
 from collective.easytemplate.config import *
 from collective.easytemplate import tagconfig
-from collective.easytemplate import easytemplateMessageFactory as _
 from collective.easytemplate import interfaces
 
-##code-section module-header #fill in your manual code here
-##/code-section module-header
+from zope.i18nmessageid import MessageFactory
+# Define a message factory for when this product is internationalised.
+# This will be imported with the special name "_" in most modules. Strings
+# like _(u"message") will then be extracted by i18n tools for translation.
+
+easytemplateMessageFactory = MessageFactory('collective.easytemplate')
+_ = easytemplateMessageFactory
 
 schema = Schema((
     BooleanField('catchErrors',
@@ -61,6 +65,8 @@ TemplatedDocument_schema["text"].accessor = "getTemplatedText"
 TemplatedDocument_schema["text"].widget.label = "Text (templated)"
 TemplatedDocument_schema["text"].widget.description = "This document view supports automatic text substitutions. For available substitutions, please contact your site administration."
 ##/code-section after-schema
+
+
 
 class TemplatedDocument(ATDocument):
     """ A page allowing Cheetah template tags in Kupu text.
@@ -156,9 +162,7 @@ class TemplatedDocument(ATDocument):
         namespace.update(tagconfig.tags)
         
         return namespace
-    
-    
-    
+
 registerType(TemplatedDocument, PROJECTNAME)
 # end of class TemplatedDocument
 

@@ -55,6 +55,7 @@ setup(name='collective.easytemplate',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
+                        'Cheetah',
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,

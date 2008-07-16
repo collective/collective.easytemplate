@@ -38,11 +38,11 @@ will result to the output::
   
   Please select one course from below:
   
-  * `Math <http://>`_
+  * `Math <http://example.example>`_
   
-  * `Marketing <http://>`_
+  * `Marketing <http://example.example>`_
   
-  * `Chemistry <http://>`_
+  * `Chemistry <http://example.example>`_
 
 Status
 ------
@@ -63,7 +63,6 @@ Installation
 Add to your buildout::
 
 	eggs = 
-		Cheetah
 		collective.easytemplate
 		
 	zcml = 
