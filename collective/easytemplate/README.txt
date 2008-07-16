@@ -125,10 +125,22 @@ If you want to add your own tags they must be added to Cheetah template namespac
 
 See TemplatedDocument.py for hacks regarding security and namespace's availability in the functions.
 
+
 Backend
 -------
 
 Cheetah template engine is used. Plone's native TAL does not work too well with escaped HTML.
+
+Tag debugging tips
+------------------
+
+If Cheetah template compilation fails you might have made copy-paste errors
+
+* HTML formatted text, having HTML tags inside Cheetah expression
+
+* Hard line breaked text, having hard line breaks inside Cheetah expression
+
+So please recycle all your template tag copy-pastes through Notepad or similar application.
 
 Sponsorship
 ------------

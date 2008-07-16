@@ -132,7 +132,7 @@ class TemplatedDocument(ATDocument):
                 request = self.REQUEST                
                 IStatusMessage(request).addStatusMessage(str(e), type="error")
             
-            return _("The page structure contains errors. Please contact the site manager. Content editors can see the error if they enable Catch errors checkbox on the template tab of edit view.")
+            return _("The page structure contains errors. Please contact the site manager. Content editors can see the error if they enable Catch errors checkbox on Edit > Template tab")
                                             
       
         
