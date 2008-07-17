@@ -3,3 +3,4 @@ collective.easytemplate allows safe template tags inside Kupu editable text or a
 This enables automatic content generation inside user editable HTML pages. 
 
 `Product homepage <http://plone.org/products/easy-template>`_
+

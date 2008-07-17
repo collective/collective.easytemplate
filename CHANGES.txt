@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0 (xxxx-xx-xx)
+0.1 (2008-07-17)
 ------------------
 
- - Created recipe with ZopeSkel [Mikko Ohtamaa].
+ - Created the initial product [Mikko Ohtamaa].
