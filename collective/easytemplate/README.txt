@@ -13,7 +13,9 @@ Plone lacks out of the box support to custom tags for content editors to play wi
 Use cases
 ---------
 
-Possible use cases are:
+The orignal use case was help maintaining the vast number of cross-reference link lists on course modules pages.
+
+Possible other use cases are
 
 * Folder list snippets on a page
 
@@ -32,7 +34,7 @@ You write in Kupu::
   
   $folder_list("courses")
  
-will result to the output::
+will result to the output:
 
   Hello user!
   
