@@ -49,8 +49,7 @@ send this message. To send it to different email addresses, just separate them\
                                 required=True)
     message = schema.Text(title=_(u"Message"),
                           description=_(u"Type in here the message that you \
-want to mail. Some defined content can be replaced: ${title} will be replaced \
-by the title of the item. ${url} will be replaced by the URL of the item."),
+want to mail."),
                           required=True)
 
 class MailAction(SimpleItem):
@@ -64,7 +63,7 @@ class MailAction(SimpleItem):
     recipients = u''
     message = u''
 
-    element = 'plone.actions.TemplatedMail'
+    element = 'collective.easytemplate.actions.Mail'
 
     @property
     def summary(self):

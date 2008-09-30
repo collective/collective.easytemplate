@@ -1,8 +1,8 @@
 """
 
-    Maintain list of template tags.
+    Maintain list of custom template tags.
     
-    Just add new tags to this dictionary.
+    Just import & add new tags to this dictionary.
     
 """
 

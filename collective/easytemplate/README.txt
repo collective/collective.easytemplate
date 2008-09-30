@@ -7,7 +7,7 @@ collective.easytemplate allows inserting template tags inside Kupu and email act
 Motivation 
 ----------
 
-Plone lacks out of the box support to custom tags for content editors to play with.
+Plone lacks out of the box support for custom, easily addable, template macros in content editors.
 
 Use cases
 ---------
@@ -75,6 +75,9 @@ Add to your buildout::
 	
 Run quick installer for *Easy Template* product.
 
+The product depends on `collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
+and Cheetah Template engine. They should be automatically be installed by setuptools.
+
 Usage
 -----
 
@@ -85,8 +88,8 @@ Use content rule action "Templated email" whenever you want to use template tags
 If you get errors in your template code, you can toggle on "Catch errors" on Template schemata
 and view detailed exception tracebacks in Zope log.
 
-Available tags
---------------
+Available templates
+-------------------
 
 Currently there isn't much you can do with the product out-of-the-box, but I accept
 all tag contributions. Most tags are site specific, so I trust the site developers 
@@ -94,7 +97,13 @@ extending this product for their own needs.
 
 Supported tags:
 
-* Archetypes fields are automatically exported
+* Archetypes fields are automatically exported depending on the object: title, text, description, etc.
+
+* *object_url* - Absolute url to the content object
+
+* *portal_url*
+
+   Portal absolute URL. Useful for links.
 
 * *$list_folder*($folder, $title, $filters)* 
   
@@ -116,9 +125,6 @@ Supported tags:
   
     $list_folder($folder="")
 
-* *portal_url*
-
-   Print portal absolute URL. Useful for links.
   
 Registering new tags
 --------------------
@@ -134,11 +140,14 @@ If you want to add your own tags they must be added to Cheetah template namespac
 
 See TemplatedDocument.py for hacks regarding security and namespace's availability in the functions.
 
+Backends
+--------
 
-Backend
--------
+`collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_ 
+package is used to allow genericr pluggable Python template engines.
+Currently only Cheetah template engine is tested and fully supported.
 
-Cheetah template engine is used. Plone's native TAL does not work too well with escaped HTML.
+Plone's native TAL template language does not work too well with escaped HTML.
 
 Tag debugging tips
 ------------------
@@ -150,6 +159,14 @@ If Cheetah template compilation fails you might have made copy-paste errors
 * Hard line breaked text, having hard line breaks inside Cheetah expression
 
 So please recycle all your template tag copy-pastes through Notepad or similar application.
+
+Author
+------
+
+Mikko Ohtamaa
+
+`Red Innovation Oy, Oulu, Finland <http://www.redinnovation.com>`_ - High quality Python hackers for hire
+
 
 Sponsorship
 ------------

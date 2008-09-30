@@ -1,7 +1,5 @@
 import unittest
 
-
-
 from Products.CMFCore.utils import getToolByName
 
 from AccessControl.SecurityManagement import newSecurityManager

@@ -131,7 +131,7 @@ class TemplatedDocument(ATDocument):
         transforms = getToolByName(self, 'portal_transforms')
         output = transforms.convertTo("text/x-html-safe", output)
                                                                                     
-        return output
+        return str(output)
             
                                                     
 

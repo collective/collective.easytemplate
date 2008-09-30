@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: collective.easytemplate
-Version: 0.1dev-r0
+Version: 0.2dev-r0
 Summary: UNKNOWN
 Home-page: http://svn.plone.org/svn/collective/collective.easytemplate
 Author: Mikko Ohtamaa
@@ -34,7 +34,7 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         Motivation
         ----------
         
-        Plone lacks out of the box support to custom tags for content editors to play with.
+        Plone lacks out of the box support for custom, easily addable, template macros in content editors.
         
         Use cases
         ---------
@@ -102,6 +102,9 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         
         Run quick installer for *Easy Template* product.
         
+        The product depends on `collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
+        and Cheetah Template engine. They should be automatically be installed by setuptools.
+        
         Usage
         -----
         
@@ -112,8 +115,8 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         If you get errors in your template code, you can toggle on "Catch errors" on Template schemata
         and view detailed exception tracebacks in Zope log.
         
-        Available tags
-        --------------
+        Available templates
+        -------------------
         
         Currently there isn't much you can do with the product out-of-the-box, but I accept
         all tag contributions. Most tags are site specific, so I trust the site developers
@@ -121,7 +124,13 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         
         Supported tags:
         
-        * Archetypes fields are automatically exported
+        * Archetypes fields are automatically exported depending on the object: title, text, description, etc.
+        
+        * *object_url* - Absolute url to the content object
+        
+        * *portal_url*
+        
+        Portal absolute URL. Useful for links.
         
         * *$list_folder*($folder, $title, $filters)*
         
@@ -143,9 +152,6 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         
         $list_folder($folder="")
         
-        * *portal_url*
-        
-        Print portal absolute URL. Useful for links.
         
         Registering new tags
         --------------------
@@ -161,11 +167,14 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         
         See TemplatedDocument.py for hacks regarding security and namespace's availability in the functions.
         
+        Backends
+        --------
         
-        Backend
-        -------
+        `collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
+        package is used to allow genericr pluggable Python template engines.
+        Currently only Cheetah template engine is tested and fully supported.
         
-        Cheetah template engine is used. Plone's native TAL does not work too well with escaped HTML.
+        Plone's native TAL template language does not work too well with escaped HTML.
         
         Tag debugging tips
         ------------------
@@ -177,6 +186,14 @@ Description: collective.easytemplate is a Plone add-on targetted for the end use
         * Hard line breaked text, having hard line breaks inside Cheetah expression
         
         So please recycle all your template tag copy-pastes through Notepad or similar application.
+        
+        Author
+        ------
+        
+        Mikko Ohtamaa
+        
+        `Red Innovation Oy, Oulu, Finland <http://www.redinnovation.com>`_ - High quality Python hackers for hire
+        
         
         Sponsorship
         ------------

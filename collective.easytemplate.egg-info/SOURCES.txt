@@ -39,4 +39,5 @@ collective/easytemplate/tags/listfolder.py
 collective/easytemplate/tests/__init__.py
 collective/easytemplate/tests/base.py
 collective/easytemplate/tests/test_content.py
+collective/easytemplate/tests/test_content_linguaplone.py
 collective/easytemplate/tests/test_mail.py

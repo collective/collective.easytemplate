@@ -69,11 +69,15 @@ class TestMailAction(EasyTemplateTestCase):
         self.assertEquals(IObjectEvent, element.event)
 
     def testExecute(self):
+        
+        # Put in stub email sender
         self.loginAsPortalOwner()
         sm = getSiteManager(self.portal)
         sm.unregisterUtility(provided=IMailHost)
         dummyMailHost = DummySecureMailHost('dMailhost')
         sm.registerUtility(dummyMailHost, IMailHost)
+        
+        # Create an action
         e = MailAction()
         e.source = "foo@bar.be"
         e.recipients = "bar@foo.be"
