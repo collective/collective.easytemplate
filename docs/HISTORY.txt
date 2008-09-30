@@ -1,7 +1,20 @@
 Changelog
 =========
 
-1.0 - Unreleased
+1.1 
+----------------
+
+* Tested against Plone 3.1.x
+
+* Decoupled template engine handling to collective.templateengines product. Now you can plug-in any template engine.
+
+* Added plone.action.TemplatedMail
+
+* Added unit tests
+
+* Expose all AT schema variables as top level template variables - Cheetah couldn't traverse Zope objects
+
+1.0
 ----------------
 
 * Initial release

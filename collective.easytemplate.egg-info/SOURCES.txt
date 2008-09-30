@@ -16,9 +16,15 @@ collective/easytemplate/README.txt
 collective/easytemplate/__init__.py
 collective/easytemplate/config.py
 collective/easytemplate/configure.zcml
+collective/easytemplate/engine.py
 collective/easytemplate/interfaces.py
 collective/easytemplate/tagconfig.py
 collective/easytemplate/tests.py
+collective/easytemplate/actions/__init__.py
+collective/easytemplate/actions/__init__.pyo
+collective/easytemplate/actions/configure.zcml
+collective/easytemplate/actions/mail.py
+collective/easytemplate/actions/mail.pyo
 collective/easytemplate/browser/__init__.py
 collective/easytemplate/browser/configure.zcml
 collective/easytemplate/content/TemplatedDocument.py
@@ -31,4 +37,5 @@ collective/easytemplate/profiles/default/types/TemplatedDocument.xml
 collective/easytemplate/tags/__init__.py
 collective/easytemplate/tags/listfolder.py
 collective/easytemplate/tests/__init__.py
-collective/easytemplate/tests/doc_tests.py
+collective/easytemplate/tests/base.py
+collective/easytemplate/tests/test_content.py

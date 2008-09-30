@@ -1,0 +1,37 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+              
+    <!-- Email action definition -->
+
+     <adapter factory=".mail.MailActionExecutor" />
+
+     <browser:page
+       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+       name="collective.easytemplate.actions.Mail"
+       class=".mail.MailAddForm"
+       permission="cmf.ManagePortal"
+       />
+
+     <browser:page
+       for="collective.easytemplate.actions.mail.IMailAction"
+       name="edit"
+       class=".mail.MailEditForm"
+       permission="cmf.ManagePortal"
+       />
+
+     <plone:ruleAction
+         name="collective.easytemplates.actions.Mail"
+         title="Send templated email"
+         description="Send an email with template variable substituion on the triggering object"
+         for="*"
+         event="zope.component.interfaces.IObjectEvent"
+         addview="collective.easytemplate.actions.Mail"
+         editview="edit"
+         schema=".mail.IMailAction"
+         factory=".mail.MailAction"
+         />
+
+</configure>

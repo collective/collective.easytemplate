@@ -1,9 +1,8 @@
 Introduction
 ------------
 
-collective.easytemplate is targetted for the end users who need automatic text snippets in their Kupu content. 
-collective.easytemplate allows safe template tags inside Kupu editable text or any user editable HTML. 
-This enables automatic content generation inside HTML pages. 
+collective.easytemplate is targetted for sites whose end users need automatic text snippets in user editable texts. 
+collective.easytemplate allows inserting template tags inside Kupu and email actions.
 
 Motivation 
 ----------
@@ -13,15 +12,19 @@ Plone lacks out of the box support to custom tags for content editors to play wi
 Use cases
 ---------
 
-The orignal use case was help maintaining the vast number of cross-reference link lists on course modules pages.
-
-Possible other use cases are
+Possible use cases are
 
 * Folder list snippets on a page
 
 * Dynamic images
 
 * Generated tables
+
+* Emailing the content text on a workflow transtion
+
+* Emailing a person whose email is defined in the contet itself on a workflow transition
+
+The orignal use case was help maintaining the vast number of cross-reference link lists on course modules pages.
 
 Example
 -------
@@ -49,7 +52,7 @@ will result to the output:
 Status
 ------
 
-The current version (0.1) is still in development and has few issues.
+The current version (1.1) is still in development and has few issues.
 
 * Zope security is not respected. You must trust your content editors, since
   Cheetah bypasses security and malicious Python sawy user could seriously 
@@ -77,6 +80,8 @@ Usage
 
 Use content type "Templated Document" whenever you want to use template tags in Kupu content.
 
+Use content rule action "Templated email" whenever you want to use template tags in workflow transition emails.
+
 If you get errors in your template code, you can toggle on "Catch errors" on Template schemata
 and view detailed exception tracebacks in Zope log.
 
@@ -87,7 +92,9 @@ Currently there isn't much you can do with the product out-of-the-box, but I acc
 all tag contributions. Most tags are site specific, so I trust the site developers 
 extending this product for their own needs.
 
-Supported tags (version 0.1):
+Supported tags:
+
+* Archetypes fields are automatically exported
 
 * *$list_folder*($folder, $title, $filters)* 
   
