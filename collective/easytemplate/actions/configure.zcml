@@ -3,6 +3,9 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone">
 
+
+	<!-- TODO: This does not look right, but couldn't get it working otherwise -->
+    <include package="plone.contentrules" file="meta.zcml" />
               
     <!-- Email action definition -->
 
@@ -23,7 +26,7 @@
        />
 
      <plone:ruleAction
-         name="collective.easytemplates.actions.Mail"
+         name="collective.easytemplate.actions.Mail"
          title="Send templated email"
          description="Send an email with template variable substituion on the triggering object"
          for="*"

@@ -32,6 +32,7 @@ from plone.contentrules.rule.interfaces import IRuleAction, IExecutable
 
 from Products.MailHost.interfaces import IMailHost
 from Products.SecureMailHost.SecureMailHost import SecureMailHost
+from Products.statusmessages.interfaces import IStatusMessage
 
 class DummyEvent(object):
     implements(IObjectEvent)
@@ -44,9 +45,13 @@ class DummySecureMailHost(SecureMailHost):
     def __init__(self, id):
         self.id = id
         self.sent = []
+        
+        self.mto = None
 
     def _send(self, mfrom, mto, messageText, debug=False):
         self.sent.append(messageText)
+        
+        self.mto = mto
 
 class TestMailAction(EasyTemplateTestCase):
 
@@ -72,6 +77,46 @@ class TestMailAction(EasyTemplateTestCase):
         e = MailAction()
         e.source = "foo@bar.be"
         e.recipients = "bar@foo.be"
+        e.subject = "Test mail"
+        e.message = u"Päge '${text}' with title ${title} created in ${object_url} !"
+        ex = getMultiAdapter((self.folder, e, DummyEvent(self.folder.d1)),
+                             IExecutable)
+        ex()
+        
+        messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
+        
+        if messages:
+            for m in messages: print str(m.message)
+            
+        # No template error messages
+        self.assertEqual(len(messages), 0)         
+        
+        self.assertEqual(len(dummyMailHost.sent), 1)
+        
+        self.failUnless(isinstance(dummyMailHost.sent[0], MIMEText))
+        mailSent = dummyMailHost.sent[0]
+        self.assertEqual('text/plain; charset="utf-8"',
+                        mailSent.get('Content-Type'))
+        self.assertEqual("bar@foo.be", mailSent.get('To'))
+        self.assertEqual("foo@bar.be", mailSent.get('From'))
+        
+        # TODO: Compare title/body in mail
+                            
+    def testExecuteTemplatedEmail(self):
+        """ Create recipients email using a template variable exposed from AT. """
+        self.loginAsPortalOwner()
+        sm = getSiteManager(self.portal)
+        sm.unregisterUtility(provided=IMailHost)
+        dummyMailHost = DummySecureMailHost('dMailhost')
+        sm.registerUtility(dummyMailHost, IMailHost)
+        e = MailAction()
+        
+        # Snatch email receiver from AT content title 
+        # Ugly but goes for a test
+        self.folder.d1.setTitle("bar@foo.be")
+        e.source = "foo@bar.be"
+        e.recipients = "$title"
+        e.subject = "Test mail"
         e.message = u"Päge '${text}' with title ${title} created in ${object_url} !"
         ex = getMultiAdapter((self.folder, e, DummyEvent(self.folder.d1)),
                              IExecutable)
@@ -82,14 +127,17 @@ class TestMailAction(EasyTemplateTestCase):
                         mailSent.get('Content-Type'))
         self.assertEqual("bar@foo.be", mailSent.get('To'))
         self.assertEqual("foo@bar.be", mailSent.get('From'))
-        self.assertEqual("P\xc3\xa4ge 'W\xc3\xa4lkommen' created in \
-http://nohost/plone/Members/test_user_1_/d1 !",
-                         mailSent.get_payload(decode=True))
         
-    def testExecuteSyntaxError(self):
-        pass
+        messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
+        
+        if messages:
+            for m in messages: print str(m.message)
+            
+        # No template error messages
+        self.assertEqual(len(messages), 0)               
+    
 
-    def testExecuteNoSource(self):
+    def testExecuteMissingVar(self):
         """ Template contains syntax errors, we should receive status messages. """
         self.loginAsPortalOwner()
         sm = getSiteManager(self.portal)
@@ -98,22 +146,24 @@ http://nohost/plone/Members/test_user_1_/d1 !",
         sm.registerUtility(dummyMailHost, IMailHost)
         e = MailAction()
         e.recipients = 'bar@foo.be,foo@bar.be'
-        e.message = 'Document created !'
+        e.subject = "Test mail"
+        e.message = 'Missing template variable $missing'
         ex = getMultiAdapter((self.folder, e, DummyEvent(self.folder.d1)),
                              IExecutable)
         self.assertRaises(ValueError, ex)
         # if we provide a site mail address this won't fail anymore
         sm.manage_changeProperties({'email_from_address': 'manager@portal.be'})
         ex()
-        self.failUnless(isinstance(dummyMailHost.sent[0], MIMEText))
-        mailSent = dummyMailHost.sent[0]
-        self.assertEqual('text/plain; charset="utf-8"',
-                        mailSent.get('Content-Type'))
-        self.assertEqual("bar@foo.be", mailSent.get('To'))
-        self.assertEqual("Site Administrator <manager@portal.be>",
-                         mailSent.get('From'))
-        self.assertEqual("Document created !",
-                         mailSent.get_payload(decode=True))
+        
+        self.assertEqual(len(dummyMailHost.sent), 0)
+                
+        messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
+        
+        if messages:
+            for m in messages: print str(m.message)
+            
+        # No template error messages
+        self.assertEqual(len(messages), 1)             
 
 def test_suite():
     from unittest import TestSuite, makeSuite

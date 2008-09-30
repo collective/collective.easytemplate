@@ -24,7 +24,9 @@ from plone.contentrules.rule.interfaces import IRuleElementData, IExecutable
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone.utils import safe_unicode
+from Products.statusmessages.interfaces import IStatusMessage
 
+from collective.templateengines.utils import log_messages
 from collective.easytemplate.config import *
 from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
@@ -72,6 +74,8 @@ class MailAction(SimpleItem):
 
 class MailActionExecutor(object):
     """The executor for this action.
+    
+    If there are template errors the execution is aborted before send mail is called.
     """
     implements(IExecutable)
     adapts(Interface, IMailAction, Interface)
@@ -80,30 +84,40 @@ class MailActionExecutor(object):
         self.context = context
         self.element = element
         self.event = event
+        self.templateErrors = False
         
-    def outputTemplateErrors(self, messages):
+    def outputTemplateErrors(self, request, messages):
         """ Write template errors to the user and the log output. """
         
         logger = logging.getLogger("Plone")
             
         for msg in messages:            
-            IStatusMessage(self.REQUEST).addStatusMessage(msg.getMessage(), type="error")
+            IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
             
         log_messages(logger, messages)        
         
     def applyTemplate(self, context, string):
         """  Shortcut to run a string through our template engine.
+        
+        @param context: ITemplateContext
+        @param string: Template as string
+        
+        @return: tuple (output as plain text, boolean had errors flag)
         """
         engine  = getEngine()
         logger = logging.getLogger("Plone")
+        
+        request = self.context.REQUEST
                 
         # TODO: Compile template only if the context has been changed           
-        t, messages = engine.loadString(text, False)
-        self.outputTemplateErrors(messages)
+        t, messages = engine.loadString(string, False)
+        self.outputTemplateErrors(request, messages)
+        self.templateErrors |= len(messages) > 0
             
         output, messages = t.evaluate(context)
-        self.outputTemplateErrors(messages)
-        
+        self.outputTemplateErrors(request, messages)
+        self.templateErrors |= len(messages) > 0
+                
         return  output
         
 
@@ -112,10 +126,9 @@ class MailActionExecutor(object):
         context = obj = self.event.object
         templateContext = getTemplateContext(context)
                 
-        recipents = self.applyTemplate(templateContext, self.element.recipents)
+        recipients = self.applyTemplate(templateContext, self.element.recipients)
         
-        recipients = [str(mail.strip()) for mail in \
-                      self.element.recipients.split(',')]
+        recipients = [str(mail.strip()) for mail in recipients.split(',')]
         
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
@@ -123,10 +136,12 @@ class MailActionExecutor(object):
 execute this action'
 
         source = self.element.source
+        source = self.applyTemplate(templateContext, source)
+        
         urltool = getToolByName(aq_inner(self.context), "portal_url")
         portal = urltool.getPortalObject()
         email_charset = portal.getProperty('email_charset')
-        if not source:
+        if not source or len(source) == 0:
             # no source provided, looking for the site wide from email
             # address
             from_address = portal.getProperty('email_from_address')
@@ -136,11 +151,26 @@ action or enter an email in the portal properties'
             from_name = portal.getProperty('email_from_name')
             source = "%s <%s>" % (from_name, from_address)
             
-        source = self.applyTemplate(templateContext, self.element.recipents)
         message = self.applyTemplate(templateContext, self.element.message)
         subject = self.applyTemplate(templateContext, self.element.subject)
         
+        # TODO: Should these to be added to status messaegs
+        if len(recipients) == 0:
+            raise ValueError("Recipients could not be defined from template:" + self.element.recipients)
+
+        if len(subject) == 0:
+            raise ValueError("Subject could not be defined from template:" + self.element.subject)
+
+        if len(source) == 0:
+            raise ValueError("Source could not be defined from template:" + self.element.source)
+
+        if self.templateErrors:
+            return
+        
         for email_recipient in recipients:
+            
+            assert len(email_recipient.strip()) > 0
+            
             mailhost.secureSend(message, email_recipient, source,
                                 subject=subject, subtype='plain',
                                 charset=email_charset, debug=False,

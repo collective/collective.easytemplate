@@ -56,6 +56,7 @@ setup(name='collective.easytemplate',
       zip_safe=False,
       install_requires=['setuptools',
                         'Cheetah',
+                        'collective.templateengines'
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
