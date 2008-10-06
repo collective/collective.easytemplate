@@ -161,10 +161,10 @@ action or enter an email in the portal properties'
         if len(recipients) == 0:
             raise ValueError("Recipients could not be defined from template:" + self.element.recipients)
 
-        if len(subject) == 0:
+        if subject == None or len(subject) == 0:
             raise ValueError("Subject could not be defined from template:" + self.element.subject)
 
-        if len(source) == 0:
+        if source == None or len(source) == 0:
             raise ValueError("Source could not be defined from template:" + self.element.source)
 
         if self.templateErrors:
