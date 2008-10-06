@@ -127,7 +127,7 @@ class MailActionExecutor(object):
                 
         recipients = self.applyTemplate(templateContext, self.element.recipients)
         if recipients == None:
-            raise ValueError("Missing recipients:" + str(self.element.recipients))
+            raise ValueError("Bad recipients value:" + str(self.element.recipients.encode("utf-8")))
             
         emails = recipients.strip().split(",")
         emails = [ email for email in emails if email != None ]                
@@ -159,13 +159,13 @@ action or enter an email in the portal properties'
         
         # TODO: Should these to be added to status messaegs
         if len(recipients) == 0:
-            raise ValueError("Recipients could not be defined from template:" + self.element.recipients)
+            raise ValueError("Recipients could not be defined from template:" + self.element.recipients.encode("utf-8"))
 
         if subject == None or len(subject) == 0:
-            raise ValueError("Subject could not be defined from template:" + self.element.subject)
+            raise ValueError("Subject could not be defined from template:" + self.element.subject.encode("utf-8"))
 
         if source == None or len(source) == 0:
-            raise ValueError("Source could not be defined from template:" + self.element.source)
+            raise ValueError("Source could not be defined from template:" + self.element.source.encode("utf-8"))
 
         if self.templateErrors:
             return
