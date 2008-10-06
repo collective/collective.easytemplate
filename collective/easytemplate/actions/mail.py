@@ -107,6 +107,10 @@ class MailActionExecutor(object):
         logger = logging.getLogger("Plone")
         
         request = self.context.REQUEST
+        
+        # We might have unicode input data which 
+        # will choke Cheetah/template engine
+        string = string.encode("utf-8")
                 
         # TODO: Compile template only if the context has been changed           
         t, messages = engine.loadString(string, False)
@@ -117,7 +121,7 @@ class MailActionExecutor(object):
         self.outputTemplateErrors(request, messages)
         self.templateErrors |= len(messages) > 0
                 
-        return  output
+        return output
         
 
     def __call__(self):
