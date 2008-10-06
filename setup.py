@@ -56,12 +56,12 @@ setup(name='collective.easytemplate',
       zip_safe=False,
       install_requires=['setuptools',
                         'Cheetah',
-                        'collective.templateengines'
+                        #'collective.templateengines'
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
-      test_suite = 'collective.easytemplate.tests.test_docs.test_suite',
+      test_suite = 'collective.easytemplate.tests',
       entry_points="""
       # -*- entry_points -*- 
       [distutils.setup_keywords]

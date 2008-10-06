@@ -126,8 +126,12 @@ class MailActionExecutor(object):
         templateContext = getTemplateContext(context)
                 
         recipients = self.applyTemplate(templateContext, self.element.recipients)
-        
-        recipients = [str(mail.strip()) for mail in recipients.split(',')]
+        if recipients == None:
+            raise ValueError("Missing recipients:" + str(self.element.recipients))
+            
+        emails = recipients.strip().split(",")
+        emails = [ email for email in emails if email != None ]                
+        recipients = [str(email.strip()) for email in emails]
         
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
