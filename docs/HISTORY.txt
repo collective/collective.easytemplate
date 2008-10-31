@@ -4,11 +4,11 @@ Changelog
 0.2
 ----------------
 
+* Added templated email content rule action (plone.action.TemplatedMail)
+
 * Tested against Plone 3.1.x
 
 * Decoupled template engine handling to collective.templateengines product. Now you can plug-in any template engine.
-
-* Added plone.action.TemplatedMail
 
 * Added unit tests
 
