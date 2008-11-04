@@ -31,6 +31,7 @@ from collective.easytemplate.config import *
 from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
 
+logger = logging.getLogger("Plone")
 
 class IMailAction(Interface):
     """Definition of the configuration available for a mail action
@@ -88,8 +89,6 @@ class MailActionExecutor(object):
     def outputTemplateErrors(self, request, messages):
         """ Write template errors to the user and the log output. """
         
-        logger = logging.getLogger("Plone")
-            
         for msg in messages:            
             IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
             
@@ -103,8 +102,9 @@ class MailActionExecutor(object):
         
         @return: tuple (output as plain text, boolean had errors flag)
         """
+        
+        print "Apply template:" + string
         engine  = getEngine()
-        logger = logging.getLogger("Plone")
         
         request = self.context.REQUEST
         
@@ -125,7 +125,7 @@ class MailActionExecutor(object):
         
 
     def __call__(self):
-                
+                        
         context = obj = self.event.object
         templateContext = getTemplateContext(context)
                 
@@ -139,8 +139,7 @@ class MailActionExecutor(object):
         
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
-            raise ComponentLookupError, 'You must have a Mailhost utility to \
-execute this action'
+            raise ComponentLookupError('You must have a Mailhost utility to execute this action')
 
         source = self.element.source
         source = self.applyTemplate(templateContext, source)
@@ -172,6 +171,7 @@ action or enter an email in the portal properties'
             raise ValueError("Source could not be defined from template:" + self.element.source.encode("utf-8"))
 
         if self.templateErrors:
+            # These has been outputted already above
             return
         
         for email_recipient in recipients:
