@@ -12,24 +12,6 @@ version = '0.2'
 
 long_description = (
     read('README.txt')
-    + '\n' +
-    'Change history\n'
-    '**************\n'
-    + '\n' +
-    read('CHANGES.txt')
-    + '\n' +
-    'Detailed Documentation\n'
-    '**********************\n'
-    + '\n' +
-    read('collective', 'easytemplate', 'README.txt')
-    + '\n' +
-    'Contributors\n'
-    '************\n'
-    + '\n' +
-    read('CONTRIBUTORS.txt')
-    + '\n' +
-    'Download\n'
-    '********\n'
     )
 
 tests_require=['zope.testing']
@@ -48,7 +30,7 @@ setup(name='collective.easytemplate',
       keywords='plone cheetah templates kupu',
       author='Mikko Ohtamaa',
       author_email='mikko@redinnovation.com',
-      url='http://svn.plone.org/svn/collective/collective.easytemplate',
+      url='http://plone.org/products/easy-template',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', ],
@@ -56,7 +38,7 @@ setup(name='collective.easytemplate',
       zip_safe=False,
       install_requires=['setuptools',
                         'Cheetah',
-                        #'collective.templateengines'
+                        'collective.templateengines'
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,

@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.3
+----------------
+
+* Added Templated Portlet
+
+* Refactored error output and logging
+
 0.2
 ----------------
 

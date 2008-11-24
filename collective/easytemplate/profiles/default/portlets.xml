@@ -1,0 +1,9 @@
+<portlets>
+
+  <portlet
+    addview="collective.easytemplate.TemplatedPortlet"
+    title="Templated portlet"
+    description="Dynamic portlet with template tags available in Visual editor"
+    />   
+
+</portlets>

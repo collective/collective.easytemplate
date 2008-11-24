@@ -35,7 +35,7 @@ You write in Kupu::
   
   Please select one course from below:
   
-  $folder_list("courses")
+  $list_folder("courses")
  
 will result to the output:
 
@@ -68,6 +68,7 @@ Installation
 Add to your buildout::
 
 	eggs = 
+	    collective.templateengines
 		collective.easytemplate
 		
 	zcml = 
@@ -84,6 +85,9 @@ Usage
 Use content type "Templated Document" whenever you want to use template tags in Kupu content.
 
 Use content rule action "Templated email" whenever you want to use template tags in workflow transition emails.
+
+Use portlet "Templated Portlet" whenever you want to dynamically generate portlet title or portlet content. 
+Otherwise Templated Portlet behaves as the stock Static Portlet.
 
 If you get errors in your template code, you can toggle on "Catch errors" on Template schemata
 and view detailed exception tracebacks in Zope log.

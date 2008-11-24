@@ -27,8 +27,7 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.templateengines.utils import log_messages
-from collective.easytemplate.config import *
-from collective.easytemplate import interfaces
+from collective.easytemplate.utils import outputTemplateErrors, applyTemplate
 from collective.easytemplate.engine import getEngine, getTemplateContext
 
 logger = logging.getLogger("Plone")
@@ -86,50 +85,17 @@ class MailActionExecutor(object):
         self.event = event
         self.templateErrors = False
         
-    def outputTemplateErrors(self, request, messages):
-        """ Write template errors to the user and the log output. """
         
-        for msg in messages:            
-            IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
-            
-        log_messages(logger, messages)        
-        
-    def applyTemplate(self, context, string):
-        """  Shortcut to run a string through our template engine.
-        
-        @param context: ITemplateContext
-        @param string: Template as string
-        
-        @return: tuple (output as plain text, boolean had errors flag)
-        """
-        
-        print "Apply template:" + string
-        engine  = getEngine()
-        
-        request = self.context.REQUEST
-        
-        # We might have unicode input data which 
-        # will choke Cheetah/template engine
-        string = string.encode("utf-8")
-                
-        # TODO: Compile template only if the context has been changed           
-        t, messages = engine.loadString(string, False)
-        self.outputTemplateErrors(request, messages)
-        self.templateErrors |= len(messages) > 0
-            
-        output, messages = t.evaluate(context)
-        self.outputTemplateErrors(request, messages)
-        self.templateErrors |= len(messages) > 0
-                
-        return output
-        
-
     def __call__(self):
                         
         context = obj = self.event.object
         templateContext = getTemplateContext(context)
-                
-        recipients = self.applyTemplate(templateContext, self.element.recipients)
+        
+        # Flag if we have errors from any template formatter
+        any_errors = False
+            
+        recipients, errors = applyTemplate(templateContext, self.element.recipients, logger=logger)
+        any_errors |= errors
         if recipients == None:
             raise ValueError("Bad recipients value:" + str(self.element.recipients.encode("utf-8")))
             
@@ -140,13 +106,15 @@ class MailActionExecutor(object):
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
             raise ComponentLookupError('You must have a Mailhost utility to execute this action')
-
+        
         source = self.element.source
-        source = self.applyTemplate(templateContext, source)
+        source, errors = applyTemplate(templateContext, source, logger=logger)
+        any_errors |= errors        
         
         urltool = getToolByName(aq_inner(self.context), "portal_url")
         portal = urltool.getPortalObject()
         email_charset = portal.getProperty('email_charset')
+        
         if not source or len(source) == 0:
             # no source provided, looking for the site wide from email
             # address
@@ -157,8 +125,11 @@ action or enter an email in the portal properties'
             from_name = portal.getProperty('email_from_name')
             source = "%s <%s>" % (from_name, from_address)
             
-        message = self.applyTemplate(templateContext, self.element.message)
-        subject = self.applyTemplate(templateContext, self.element.subject)
+        message, errors = applyTemplate(templateContext, self.element.message, logger=logger)
+        any_errors |= errors
+        
+        subject, errors = applyTemplate(templateContext, self.element.subject, logger=logger)
+        any_errors |= errors
         
         # TODO: Should these to be added to status messaegs
         if len(recipients) == 0:
@@ -170,7 +141,7 @@ action or enter an email in the portal properties'
         if source == None or len(source) == 0:
             raise ValueError("Source could not be defined from template:" + self.element.source.encode("utf-8"))
 
-        if self.templateErrors:
+        if any_errors:
             # These has been outputted already above
             return
         

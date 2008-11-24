@@ -8,6 +8,7 @@
     
     <!-- Include the sub-packages that use their own configure.zcml files. -->
     <include package=".browser" />
+    <include package=".browser.portlets" />    
     <include package=".content" />
     <include package=".actions" />
 

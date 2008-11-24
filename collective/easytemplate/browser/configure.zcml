@@ -4,6 +4,8 @@
     i18n_domain="collective.easytemplate">
 
     <include package="plone.app.contentmenu" />
+    
+    <include package=".portlets" />
 
     <!-- -*- extra stuff goes here -*- -->
 
