@@ -6,8 +6,9 @@
     
 """
 
-from collective.easytemplate.tags.listfolder import list_folder
+from collective.easytemplate.tags.content import list_folder, pick_content
 
 tags = {
-        "list_folder" : list_folder
+        "list_folder" : list_folder,
+        "pick_content" : pick_content        
 }
