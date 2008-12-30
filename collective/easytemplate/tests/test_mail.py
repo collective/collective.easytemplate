@@ -34,6 +34,10 @@ from Products.MailHost.interfaces import IMailHost
 from Products.SecureMailHost.SecureMailHost import SecureMailHost
 from Products.statusmessages.interfaces import IStatusMessage
 
+from collective.easytemplate import tagconfig, engine
+from collective.templateengines.backends import cheetah
+
+
 class DummyEvent(object):
     implements(IObjectEvent)
 
@@ -60,6 +64,10 @@ class TestMailAction(EasyTemplateTestCase):
         self.portal.invokeFactory('Folder', 'target')
         self.folder.invokeFactory('Document', 'd1',
             title=unicode('Wälkommen', 'utf-8'))
+        
+        # old tests - were written  for cheetah
+        engine.setupEngine(cheetah.Engine())
+                
 
     def testRegistered(self):
         element = getUtility(IRuleAction, name='collective.easytemplate.actions.Mail')

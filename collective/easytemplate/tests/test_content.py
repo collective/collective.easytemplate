@@ -10,13 +10,26 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.easytemplate.content.TemplatedDocument import ERROR_MESSAGE
 from collective.easytemplate.tests.base import EasyTemplateTestCase
+
+from collective.easytemplate import tagconfig, engine
+from collective.templateengines.backends import cheetah
+from collective.templateengines.utils import dump_messages
+
 class ContentTestCase(EasyTemplateTestCase):
     """ Check that Templated Document functions properly. """
     
     def afterSetUp(self):
+        
+        EasyTemplateTestCase.afterSetUp(self)
+        
         self.workflow = getToolByName(self.portal, 'portal_workflow')
         self.acl_users = getToolByName(self.portal, 'acl_users')
         self.types = getToolByName(self.portal, 'portal_types')
+        
+        # old tests - were written  for cheetah
+        engine.setupEngine(cheetah.Engine())
+        
+        
     
     def test_create(self):        
         self.loginAsPortalOwner()
@@ -66,12 +79,14 @@ class ContentTestCase(EasyTemplateTestCase):
         doc.setCatchErrors(True)
 
         doc.setText('$list_folder($folder="folder")')
-        print doc.getRawText()                
+        #print doc.getRawText()                
         output = doc.getTemplatedText()
                 
         # Should not happen
         messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()                
-        for m in messages: print str(m.message)
+        if messages:
+            for m in messages: print "Template errors:" + str(m.message)
+        
         
     
         self.assertEqual(len(messages), 0)

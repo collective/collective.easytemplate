@@ -28,6 +28,7 @@ from Products.ATContentTypes.content.document import ATDocumentSchema
 from collective.easytemplate.config import *
 from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
+from collective.easytemplate.utils import outputTemplateErrors
 
 from zope.i18nmessageid import MessageFactory
 # Define a message factory for when this product is internationalised.
@@ -92,12 +93,7 @@ class TemplatedDocument(ATDocument):
     def outputTemplateErrors(self, messages):
         """ Write template errors to the user and the log output. """    
         logger = logging.getLogger("Plone")
-        
-        if self.getCatchErrors():
-            for msg in messages:            
-                IStatusMessage(self.REQUEST).addStatusMessage(msg.getMessage(), type="error")
-            
-        log_messages(logger, messages)
+        outputTemplateErrors(messages, request=self.REQUEST, logger=logger)
                 
 
     # Methods

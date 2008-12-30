@@ -29,3 +29,6 @@ class EasyTemplateTestCase(ptc.PloneTestCase):
     """We use this base class for all the tests in this package. If necessary,
     we can put common utility or setup code in here.
     """
+
+    def afterSetUp(self):
+        pass

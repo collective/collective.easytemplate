@@ -1,0 +1,6 @@
+setuptools
+Cheetah
+collective.templateengines
+
+[tests]
+zope.testing

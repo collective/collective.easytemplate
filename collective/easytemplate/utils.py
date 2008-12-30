@@ -15,7 +15,7 @@ from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone.utils import safe_unicode
 from Products.statusmessages.interfaces import IStatusMessage
 
-from collective.templateengines.utils import log_messages
+from collective.templateengines.utils import log_messages, dump_messages
 from collective.easytemplate.config import *
 from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
@@ -30,6 +30,9 @@ def outputTemplateErrors(messages, request=None, logger=None):
     
     if logger != None:
         log_messages(logger, messages)        
+        
+    dump_messages(messages)
+            
     
 def applyTemplate(context, string, logger=None):
     """  Shortcut to run a string through our template engine.

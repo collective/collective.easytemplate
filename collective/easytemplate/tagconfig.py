@@ -6,9 +6,8 @@
     
 """
 
-from collective.easytemplate.tags.content import list_folder, pick_content
+from collective.easytemplate.tags.content import ListFolder
 
-tags = {
-        "list_folder" : list_folder,
-        "pick_content" : pick_content        
-}
+
+# Registered tags - function name - ITag interface instance
+tags = [ListFolder(),]
