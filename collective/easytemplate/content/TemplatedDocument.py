@@ -94,12 +94,11 @@ class TemplatedDocument(ATDocument):
         """ Write template errors to the user and the log output. """    
         logger = logging.getLogger("Plone")
         outputTemplateErrors(messages, request=self.REQUEST, logger=logger)
-                
 
     # Methods
     security.declareProtected(View, 'getTemplatedText')
     def getTemplatedText(self):
-        """ Cook the templated text. """
+        """ Cook the view mode output. """
         
         text = self.getRawText()
         

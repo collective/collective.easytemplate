@@ -44,6 +44,7 @@ class ContentTestCase(EasyTemplateTestCase):
         doc.setCatchErrors(True)
         doc.setTitle(tests)
         doc.setText("${title}")
+        
         output = doc.getTemplatedText()
         messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
         

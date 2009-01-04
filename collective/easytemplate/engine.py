@@ -10,6 +10,9 @@ __docformat__ = "epytext"
 
 from collective.templateengines.context.plone import ArchetypesSecureContext
 from collective.templateengines.backends import jinja
+from collective.templateengines.context import jinjazope
+
+from collective.templateengines.utils import Message
 
 from collective.easytemplate import tagconfig
 
@@ -43,6 +46,17 @@ def getTemplateContext(context):
     # Tags are registered at teh engine level
     return context
 
-# TODO - hard dependency to Jinja - remove
-# Currently active global engine
-_engine = setupEngine(jinja.Engine())
+
+def setDefaultEngine():    
+    """ Set a Zope sandboxed Jinja execution environment """
+    # TODO - hard dependency to Jinja - remove
+    # Currently active global engine
+    _engine = setupEngine(jinja.Engine(env=jinjazope.ZopeSandbox()))
+    
+    import AccessControl
+    unauthorized = AccessControl.unauthorized.Unauthorized
+    if not unauthorized in Message.unwrappableExceptions:
+        Message.unwrappableExceptions.append(unauthorized)
+    
+setDefaultEngine()
+

@@ -37,7 +37,7 @@ setup(name='collective.easytemplate',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
-                        'Cheetah',
+                        'Jinja2',
                         'collective.templateengines'
                         # -*- Extra requirements: -*-
                         ],

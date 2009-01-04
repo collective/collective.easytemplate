@@ -24,6 +24,9 @@ from collective.easytemplate.engine import getEngine, getTemplateContext
 def outputTemplateErrors(messages, request=None, logger=None):
     """ Write template errors to the user as status messages and the log output. """
     
+    if logger != None:
+        logger.error("EasyTemplate template paring errors")
+    
     if request != None:
         for msg in messages:            
             IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
