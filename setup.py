@@ -38,7 +38,8 @@ setup(name='collective.easytemplate',
       zip_safe=False,
       install_requires=['setuptools',
                         'Jinja2',
-                        'collective.templateengines'
+                        'collective.templateengines',
+                        'plone.portlet.static'
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,

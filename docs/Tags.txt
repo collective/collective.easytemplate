@@ -157,11 +157,11 @@ The output is limited by the current user permissions.
 
 Return the three most fresh News Item objects sorted by date::
 
-	{{ query(portal_type="News Item", sort_on="Date", sort_order="reverse", sort_limit=3) }}
+	{{ query({portal_type="News Item", sort_on="Date", sort_order="reverse", sort_limit=3}) }}
 	
 Return all items in one folder::
 
-	{{ query(path={"query" : "/folder", depth: 0}) }}
+	{{ query({path={"query" : "/folder", depth: 0}}) }}
 	
 For more information about possible query formats see `this old document <http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx>`_.
 
@@ -215,3 +215,20 @@ Note: You might want to use query() tag serch limited by path for more powerful 
 **Example (create a course module listing from a course folder)**:
 
 	{{ list_folder("courses/marketing/cim-professional-certificate-in-marketing", title="Other modules in this course:", filters={ "portal_type" : "Module"}) }}
+
+Advanced examples
+=================
+
+Create a front page table containing a news listing and a listing of external blog entries.
+
+
+
+Debugging tips
+==============
+
+If the template compilation fails you might have made copy-paste errors.
+Please view the template in raw HTML mode to track down the errors:
+
+* HTML tags inside a template expression
+
+* Hard line breaks inside a template expression

@@ -85,6 +85,15 @@ class TestViewlets(EasyTemplateTestCase):
         # Magic key match
         self.assertTrue("portal_owner" in val)
 
+    def test_explore_dict(self):
+        self.portal.folder.easy_template.test = { "foobar" : "123" }
+        val = self.runSnippet("Test {{ explore(context.test) }}")
+
+    def test_explore_int(self):        
+        self.portal.folder.easy_template.test = 1.0
+        val = self.runSnippet("Test {{ explore(context.test) }}")
+
+
 def test_suite():
     from unittest import TestSuite, makeSuite
     suite = TestSuite()

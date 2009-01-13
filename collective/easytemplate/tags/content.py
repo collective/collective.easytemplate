@@ -144,11 +144,10 @@ class ExploreTag(object):
     
     def render(self, scriptingContext, object):
         """             
+        Use Python PrettyPrinter to dump objects 
+        to HTML table.
         """
-        #from collective.easytemplate import thirdparty
-        #return thirdparty.dumpObj(object)
-        # TODO: Add nice formatting
-        
+
         import pprint
         import StringIO
         buffer = StringIO.StringIO()
@@ -161,7 +160,7 @@ class ExploreTag(object):
         print >> buffer, "<th>Value</th>"        
         print >> buffer, "</tr>"        
         
-        for key, value in object.__dict__.items():
+        def do_obj(key, value):
             print >> buffer, "<tr>"
             print >> buffer, "<td>"            
             print >> buffer, str(key)
@@ -171,6 +170,15 @@ class ExploreTag(object):
             pp.pprint(value)
             print >> buffer, "</td>"
             print >> buffer, "</tr>"            
+            
+        if hasattr(object, "__dict__"):        
+            for key, value in object.__dict__.items():
+                do_obj(key, value)
+        elif type(object) == type({}):
+            for key, value in object.items():
+                do_obj(key, value)            
+        else:
+            do_obj("Object", object)
 
         print >> buffer, "</tbody>"
         print >> buffer, "</table>"        
