@@ -1,0 +1,22 @@
+Templated documents
+=====================
+
+Easy Template product adds templating possibilities to several Plone elements.
+
+Document
+--------
+
+Use Templated Document content type to add scriptable Plone pages.
+
+
+Portlets
+--------
+
+Use Templated Portlet portlet to add scripts to your portlets.
+
+
+Templated Mail Action
+---------------------
+
+Use Templated Mail Action to add scripts to your content rules outgoing email messages.
+

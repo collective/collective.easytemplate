@@ -1,6 +1,6 @@
 """
 
-    Tags for adding different folder lists.
+    Tags for outputting content data.
 
 """
 
@@ -101,5 +101,82 @@ class ListFolder:
         return output
     
     def __call__(self, *args, **kwargs):
-        raise RuntimeError("TagProxy should call render() method")
+        raise RuntimeError("Deprecated - TagProxy should call render() method")
+    
+    
+class QueryTag(object):
+    """ Perform portal_catalog search query and return results.
+        
+    """
+    
+    interface.implements(ITag)
+    
+    def getName(self):
+        return "query"
+    
+    def render(self, scriptingContext, searchParameters):
+        """     
+        
+        @param searchParameters: Dictionary of portal_catalog query parameters
+        @param scriptingContext: Instance of collective.templateengines.interfaces.ITemplateContext
+        @return: Raw catalog brains objects
+        """
+        
+        mappings = scriptingContext.getMappings()
+        
+        # Get traversing context
+        context = mappings["context"]
+        request = mappings["request"]    
+        
+        portal_catalog = getToolByName(context, "portal_catalog")
+        return portal_catalog.queryCatalog(searchParameters)
+    
+    
+class ExploreTag(object):
+    """ Dump object developer info.
+        
+    """
+    
+    interface.implements(ITag)
+    
+    def getName(self):
+        return "explore"
+    
+    def render(self, scriptingContext, object):
+        """             
+        """
+        #from collective.easytemplate import thirdparty
+        #return thirdparty.dumpObj(object)
+        # TODO: Add nice formatting
+        
+        import pprint
+        import StringIO
+        buffer = StringIO.StringIO()
+        pp = pprint.PrettyPrinter(indent=4, depth=3, stream=buffer)
+        
+        print >> buffer, '<table class="object-explore">'
+        print >> buffer, "<thead>"
+        print >> buffer, "<tr>"
+        print >> buffer, "<th>Attribute name</th>"        
+        print >> buffer, "<th>Value</th>"        
+        print >> buffer, "</tr>"        
+        
+        for key, value in object.__dict__.items():
+            print >> buffer, "<tr>"
+            print >> buffer, "<td>"            
+            print >> buffer, str(key)
+            print >> buffer, "</td>"           
+            
+            print >> buffer, "<td>"            
+            pp.pprint(value)
+            print >> buffer, "</td>"
+            print >> buffer, "</tr>"            
+
+        print >> buffer, "</tbody>"
+        print >> buffer, "</table>"        
+        
+
+        return buffer.getvalue()
+        
+        
     

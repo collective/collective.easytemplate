@@ -1,0 +1,12 @@
+Security
+========
+
+Template functions are limited to the current user priviledges - 
+this means that output may vary depending on which user you have logged in.
+
+Some tags are not secure and you need to disable them on the production site.
+
+Security is not guaranteed for this product. For sites with high security demands,
+please consult the author for the product usage.
+
+Security unit tests are available `here <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/tests/test_jinja_zope_security.py>`_.

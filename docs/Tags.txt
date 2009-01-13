@@ -1,0 +1,207 @@
+Template tags
+=============
+
+This document describes available functions in template and 
+other programming gimmicks.
+
+The default Jinja backend exposes Python functions as functions,
+so you need to add () after them to get a sensible value out of the function.
+
+Template context
+================
+
+Template context holds the top level variables you have available in 
+your template. This is defined in `context/plone.py <https://dev.plone.org/collective/browser/collective.templateengines/trunk/collective/templateengines/context/plone.py>`_.
+
+Archetypes based objects
+------------------------
+
+Archetypes based objects are exposed as is to the template engine.
+
+You can call getXXX functions and other schema accessor functions to query 
+individual fields values. These field expositions depend on the manipulated
+object and are defined in the object schema file::
+
+   {{ context.Title() }}
+   
+   {{ context.getBody() }} 
+
+If you have a write access to the object you can even set values, though this is 
+not useful::
+
+   {{ context.setTitle('Moo the novel') }}
+ 
+ 
+context
+-------
+
+Context is the current Template Document object. You can use context to
+access.
+	
+Traversing
+----------
+
+To access the other objects beside the current Template Document you can traverse
+in the folder hierarchy using Zope's traversing mechanism.
+
+Get the parent folder::
+
+  {{ context.aq_parent }}
+  
+Get the sister page (in the same folder) with URL id 'sister':
+
+  {{ context.aq_parent.sister }}
+
+portal
+------
+
+Portal is the root Plone object of your site. You can use it as a traversing
+start point to query other objects on your site. E.g.
+
+Some of available methods are described in IPortal interface.
+
+To access the top level news folder:
+
+   {{ portal.news }}
+   
+user
+----
+
+user variable holds the current user of IPloneUser class.
+
+Example::
+
+	{% if user.isAnonymous() %}
+	     <b>Hello Stranger</b>
+	{% else %}
+	     <b>Hello {{ user.username() }}</b>	
+	{% endif %}
+  
+Tags
+====
+
+These are custom functions you are able to use in your tags.
+They are registered in tagconfig.py file in the product folder.
+
+explore
+-------
+
+Dump object methods and variables for developer consumption.
+
+**You want to disable this tag on production site, since it is
+read priviledge escalation. You have been warned **.
+
+Explore tag helps you to build scripts by exposing what the objects have eaten.
+It prints a tabular output of available methods and variables.
+
+**Parameters**:
+
+*object*: Object to explore
+
+Show the guts of current Templated Document object::
+
+	{{ explore(context) }}
+	
+Show what we have in the portal root::
+
+	{{ explore(portal) }}
+	
+Show what was returned by a function::
+
+	{{ explore(query(portal_type="Folder)) }}
+
+
+viewlet
+-------
+
+Render a viewlet. 
+
+Parameter *name*: Viewlet id as it appears on portal_view_customizations ZMI page.
+
+Example::
+
+   {{ viewlet("portal.logo") }}
+
+
+query
+-----
+
+Return site objects based on search criteria.
+
+Query returns the list of site objects as returned by portal_catalog
+search. The objects are catalog brains: dictionaries containing 
+metadata ids as key.
+
+See ZMI portal_catalog tool for avaiable query index and returned metadata fields.
+
+Key-value pairs are taken as the parameters and they are directly passed to 
+the portal_catalog search.
+
+The output is limited by the current user permissions.
+
+**Parameters**:
+
+- *searchParameters*: Python dictionary of portal_catalog query parameters. index->query mappings. Bad index id does not seem to raise any kind of an error.
+
+**Examples**
+
+Return the three most fresh News Item objects sorted by date::
+
+	{{ query(portal_type="News Item", sort_on="Date", sort_order="reverse", sort_limit=3) }}
+	
+Return all items in one folder::
+
+	{{ query(path={"query" : "/folder", depth: 0}) }}
+	
+For more information about possible query formats see `this old document <http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx>`_.
+
+rss_feed
+--------
+
+The function reads RSS feed. You can iterate manually through entries
+and format the output. This is mostly suitable when dealing with HTML
+source code.
+
+Parameter *url*: URL to RSS or RSS
+Parameter *cache_timeout: Optional, default value 60. Seconds how often the HTTP GET request should be performed.
+Return: List of dictionaries with following keys: *title*, *summary*, *url*, *updated* and *friendly_date*.
+
+Example (raw HTML edit)::
+
+	{% for entry rss_feed("http://blog.redinnovation.com/feed/") %}
+		<p>
+			<b>Title:</b> 	
+			<span>{{ entry.title }}
+		</p>
+		
+		<p>
+			<b>Summary:</b> 	
+			<span>{{ entry.summary }}
+		</p>		
+	{% endfor %}
+	
+plone.app.portlets.rss.RSSFeed is used as the RSS reader backend.
+	
+list_folder
+-----------
+
+List folder content and return the output as <ul> tag. Mostly suitable for 
+testing and simplified folder output generating in portlets.
+
+Note: You might want to use query() tag serch limited by path for more powerful output formatting.
+
+**Parameters**
+
+- *folder*: The path to the listed folder. Same as the URI path on the site.
+
+- *title*: Render this title for the listing as a subheading
+
+- *filters*: portal_catalog query parameters to be applied for the output. See query() below for examples.
+
+- *exclude_self*: If True do not render context Templated Document in the outpput
+
+- *extra_items*: String of comma separated entries of URIs which are outside the target folder, but should be appended to the listing.
+
+**Example (create a course module listing from a course folder)**:
+
+	{{ list_folder("courses/marketing/cim-professional-certificate-in-marketing", title="Other modules in this course:", filters={ "portal_type" : "Module"}) }}
