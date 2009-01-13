@@ -9,7 +9,8 @@ Easy non-XML Jinja syntax means that For the basic usage, no HTML knowledge is n
 You can use template logic in HTML and non-HTML views of Kupu. 
 
 Template engine is switchable in the application code. Besides Jinja, 
-Django and Cheetah engines are supported by collective.templateengines
-template backend. However, Zope security is not supported for these template
-engines and the template editor is able to escape the template sandbox and have
+Django and Cheetah engines are supported by `collective.templateengines
+ <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
+ backend. Only Jinja supports Zope security, so if you switch the engine
+ the template editor is able to escape the template sandbox and have
 managerial acceess to the site.

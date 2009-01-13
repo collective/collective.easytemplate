@@ -1,8 +1,18 @@
-Template tags
-=============
+Template authoring guide
+========================
 
-This document describes available functions in template and 
-other programming gimmicks.
+This document describes available variables and functions in 
+Easy Template template products. Some example template snippets
+are included.
+
+Introduction
+============
+
+Jinja template engine is used. The template engine is switchable,
+so you can switch it to your preferred template engine with little trouble.
+
+For available Jinja language constructs,
+please consult `Jinja documentation <http://jinja.pocoo.org/2/documentation/templates>`_.
 
 The default Jinja backend exposes Python functions as functions,
 so you need to add () after them to get a sensible value out of the function.
