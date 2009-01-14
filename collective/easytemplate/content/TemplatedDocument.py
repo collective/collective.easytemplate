@@ -165,7 +165,7 @@ class TemplatedDocument(ATDocument):
         transforms = getToolByName(self, 'portal_transforms')
         output = transforms.convertTo("text/x-html-safe", output)
                                                                                     
-        return str(output)
+        return unicode(output).encode("utf-8")
 
     security.declareProtected(View, 'getTemplatedText')    
     def testTemplate(self):

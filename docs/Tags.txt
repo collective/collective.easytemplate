@@ -307,6 +307,9 @@ Both columns are limited to three entries.
 The text is translated and when the default Plone translation catalogs
 lack suitable msgids, a custom translation catalog *twinapex* is used.
 
+This example must be put into unfiltered template input box,
+since Kupu seems to insert unwanted &nbsp; characters into the code.
+
 **Example**::
 
 	<table class="front-page two-column">
