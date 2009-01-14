@@ -114,29 +114,41 @@ class TemplatedDocument(ATDocument):
         """ Write template errors to the user and the log output. """    
         logger = logging.getLogger("Plone")
         outputTemplateErrors(messages, request=self.REQUEST, logger=logger)
-
-    # Methods
-    security.declareProtected(View, 'getTemplatedText')
-    def getTemplatedText(self):
-        """ Cook the view mode output. """
         
+    def getTemplateSource(self):
         # Choose between normal kupu editor input
         # and unfiltered input
-        unfiltered = self.getUnfilteredTemplate()
+        unfiltered = self.getRawUnfilteredTemplate()
         if unfiltered != None and unfiltered.strip() != "":
             # We are using raw HTML input
             text = unfiltered            
         else:
             text = self.getRawText()
-        
+            
+        return text
+
+    def compile(self, text):
+        """ Compile the template. """
         engine = getEngine()
-        context = getTemplateContext(self)
         
         if text == None:
             text = ""
                                              
         # TODO: Compile template only if the context has been changed           
         t, messages = engine.loadString(text, False)
+        return t, messages
+      
+
+    security.declareProtected(View, 'getTemplatedText')
+    def getTemplatedText(self):
+        """ Cook the view mode output. """
+        
+        context = getTemplateContext(self)        
+        
+        text = self.getTemplateSource()
+                
+        t, messages = self.compile(text)
+        
         self.outputTemplateErrors(messages)
         if not t:            
             return ERROR_MESSAGE
@@ -154,7 +166,28 @@ class TemplatedDocument(ATDocument):
         output = transforms.convertTo("text/x-html-safe", output)
                                                                                     
         return str(output)
-            
+
+    security.declareProtected(View, 'getTemplatedText')    
+    def testTemplate(self):
+        """ Return template output without HTML transformations.
+        
+        Useful for template debugging.
+        """
+        
+        context = getTemplateContext(self)        
+        text = self.getTemplateSource()        
+        t, messages = self.compile(text)            
+        if len(messages) > 0:
+            return str(messages)
+        
+        response = self.REQUEST.RESPONSE
+        response.setHeader('Content-type', "text/plain")
+        
+        output, messages = t.evaluate(context)
+        if len(messages) > 0:
+            response.write(str(messages))
+        else:
+            response.write(str(output))
                                                     
 
 registerType(TemplatedDocument, PROJECTNAME)

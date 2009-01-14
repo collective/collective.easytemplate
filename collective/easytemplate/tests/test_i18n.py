@@ -58,6 +58,21 @@ class TestI18N(EasyTemplateTestCase):
 
         self.assertEqual(val, "<p>Test Lisää uutisia...</p>")
 
+    def test_translate_default(self):
+        """ Test translating a missing catalog entry, defaulting to given english string. """
+
+        # We need to fake the interface here for PTS check        
+        # See PTSTranslationDomain.translate
+        from zope.publisher.interfaces.browser import IBrowserRequest
+        context = self.portal.folder.easy_template
+        alsoProvides(context.REQUEST, IBrowserRequest)
+        context.REQUEST["PARENTS"] = [self.app]
+
+        val = self.runSnippet('Test {{ translate("missing_id", default="Foobar")  }}')
+
+        self.assertEqual(val, "<p>Test Foobar</p>")
+
+
 def test_suite():
     from unittest import TestSuite, makeSuite
     suite = TestSuite()

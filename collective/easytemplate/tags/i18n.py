@@ -57,7 +57,7 @@ class TranslateTag(object):
         return "translate"
     
     
-    def render(self, scriptingContext, message, domain="plone", language=None):
+    def render(self, scriptingContext, message, domain="plone", language=None, default=None):
         """             
         
         """
@@ -72,7 +72,7 @@ class TranslateTag(object):
         
         tool = getToolByName(context, 'translation_service')        
 
-        value = tool.utranslate(context=context, domain=domain, msgid=message, target_language=language)
+        value = tool.utranslate(context=context, domain=domain, msgid=message, target_language=language, default=default)
         return value
         
         

@@ -16,6 +16,10 @@ template properties:
  
 - *Unfiltered template*: For raw HTML template input. This code is not 
   scrambled or filtered by WYSIWYG editing. 
+  
+You can debug the template code by seeing the direct template engine output
+by appending */testTemplate* to the object url. It will return 
+plain text view what the cooked template has eaten.
 
 Portlets
 --------

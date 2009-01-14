@@ -86,7 +86,16 @@ Example::
 	{% else %}
 	     <b>Hello {{ user.username() }}</b>	
 	{% endif %}
-  
+ 
+portal_url
+----------
+
+Plone portal_url tool. Call to return the site root url.
+
+Example::
+
+	<a href="{{ portal_url() }}">Home</a>
+
 Tags
 ====
 
@@ -242,13 +251,17 @@ the translation is available in po files.
 
 - *language*: target language code, e.g. fi, optional, defaults to the currently selected language
 
+- *default*: The default value to be displayed if the msgid is missing for the selected langauge
+
 ** Return **
 
 - translated string
 
-** Example **::
+** Examples **::
 
-	{{ translate8
+	{{ translate("missing_id", default="Foobar")  }}
+	
+	{{ translate("box_more_news_link", "plone", "fi")  }}
 	
 	
 For available default Plone msgids, see `PloneTranslations product source <https://dev.plone.org/collective/browser/PloneTranslations/trunk/i18n>`_
@@ -280,9 +293,70 @@ This enables conditional showing based on the language.
 Advanced examples
 =================
 
-Create a front page table containing a news listing and a listing of external blog entries.
+News & blog table
+-----------------
 
+The following snippet will create a table with two columns. The
+left column is filled with a summary and link to all published news on the site.
+The right column is filled with links to external blog entries, taken from 
+a RSS feed. The news query is language sensitive - only news for the 
+current active language are shown.
 
+Both columns are limited to three entries.
+
+The text is translated and when the default Plone translation catalogs
+lack suitable msgids, a custom translation catalog *twinapex* is used.
+
+**Example**::
+
+	<table class="front-page two-column">
+		<tbody>
+			<tr>
+				<td class="column-2">
+					<h2>
+						<a href="{{ portal_url() }}/news">
+							{{ translate("news", "twinapex") }}						
+						</a>
+					</h2>					
+					{% for item in query({"portal_type":"News Item", "review_state" : "published", "sort_on":"Date", "sort_order":"reverse", "sort_limit":3}) %}
+						<div class="fp-item">
+							<a href="{{ item.getURL() }}">{{ item.Title }}</a>
+							<p>
+								{{ item.Description }}
+							</p>
+							
+							<p class="timestamp">{{ item.Date }}</p>
+						</div>
+					{% endfor %}
+					
+					<p class="more">
+						<a class="more" href="{{ portal_url() }}/news">
+							{{ translate("box_more_news_link", default="More news...") }}
+						</a>				
+					</p>
+				</td>
+				<td class="column-2">
+					<h2>
+						<a href="{{ portal_url() }}/news">
+							{{ translate("blog", "twinapex") }}
+						</a>
+					</h2>									
+					{% for item in rss_feed("http://blog.redinnovation.com/feed/")[0:3] %}
+						<div class="fp-item">
+							<a href="{{ item.url }}">{{ item.title }}</a>
+							<p class="timestamp">{{ item.friendly_date }}</p>						
+						</div>
+					{% endfor %}
+	
+					<p class="more">
+						<a class="more" href="http://blog.twinapex.fi">
+							{{ translate("box_morelink", default="More...") }}
+						</a>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
 Debugging tips
 ==============
