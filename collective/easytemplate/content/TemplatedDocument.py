@@ -121,11 +121,11 @@ class TemplatedDocument(ATDocument):
         unfiltered = self.getRawUnfilteredTemplate()
         if unfiltered != None and unfiltered.strip() != "":
             # We are using raw HTML input
-            text = unfiltered            
+            text = unfiltered.decode("utf-8")
         else:
             text = self.getRawText()
-            
-        return text
+                        
+        return text.deco
 
     def compile(self, text):
         """ Compile the template. """
