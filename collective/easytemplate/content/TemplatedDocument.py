@@ -125,7 +125,7 @@ class TemplatedDocument(ATDocument):
         else:
             text = self.getRawText()
                         
-        return text.deco
+        return text
 
     def compile(self, text):
         """ Compile the template. """
