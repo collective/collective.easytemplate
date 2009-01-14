@@ -8,15 +8,27 @@ Document
 
 Use Templated Document content type to add scriptable Plone pages.
 
+This content item has a tab *Template* which allows you to adjust advanced
+template properties:
+
+- *Show errors*: After checking this option the error messages will be available
+ to the user regardless if he/she is admin
+ 
+- *Unfiltered template*: For raw HTML template input. This code is not 
+  scrambled or filtered by WYSIWYG editing. 
 
 Portlets
 --------
 
 Use Templated Portlet portlet to add scripts to your portlets.
 
+Enter template code to Kupu editor.
 
-Templated Mail Action
----------------------
+EMail 
+-----
 
 Use Templated Mail Action to add scripts to your content rules outgoing email messages.
+
+Template output is available in *recipients*, *subject* and *message* fields.
+
 

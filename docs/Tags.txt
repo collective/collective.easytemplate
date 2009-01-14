@@ -116,21 +116,9 @@ Show what we have in the portal root::
 
 	{{ explore(portal) }}
 	
-Show what was returned by a function::
+Show what was returned by a function which returns a list - take the first element::
 
-	{{ explore(query(portal_type="Folder)) }}
-
-
-viewlet
--------
-
-Render a viewlet. 
-
-Parameter *name*: Viewlet id as it appears on portal_view_customizations ZMI page.
-
-Example::
-
-   {{ viewlet("portal.logo") }}
+	{{ explore(query({portal_type="Folder})[0]) }}
 
 
 query
@@ -153,6 +141,10 @@ The output is limited by the current user permissions.
 
 - *searchParameters*: Python dictionary of portal_catalog query parameters. index->query mappings. Bad index id does not seem to raise any kind of an error.
 
+**Return value**:
+
+- List of ZCatalog brain objects. Brain objects have methods getURL, getPath and getObject and dictionary look up for catalog metadata columns.
+
 **Examples**
 
 Return the three most fresh News Item objects sorted by date::
@@ -165,6 +157,18 @@ Return all items in one folder::
 	
 For more information about possible query formats see `this old document <http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx>`_.
 
+viewlet
+-------
+
+Render a viewlet. 
+
+Parameter *name*: Viewlet id as it appears on portal_view_customizations ZMI page.
+
+Example::
+
+   {{ viewlet("portal.logo") }}
+
+
 rss_feed
 --------
 
@@ -172,9 +176,15 @@ The function reads RSS feed. You can iterate manually through entries
 and format the output. This is mostly suitable when dealing with HTML
 source code.
 
-Parameter *url*: URL to RSS or RSS
-Parameter *cache_timeout: Optional, default value 60. Seconds how often the HTTP GET request should be performed.
-Return: List of dictionaries with following keys: *title*, *summary*, *url*, *updated* and *friendly_date*.
+**Parameters**
+
+- *url*: URL to RSS or RSS
+
+- *cache_timeout: Optional, default value 60. Seconds how often the HTTP GET request should be performed.
+
+**Return**
+
+- List of dictionaries with following keys: *title*, *summary*, *url*, *updated* and *friendly_date*.
 
 Example (raw HTML edit)::
 
@@ -212,9 +222,60 @@ Note: You might want to use query() tag serch limited by path for more powerful 
 
 - *extra_items*: String of comma separated entries of URIs which are outside the target folder, but should be appended to the listing.
 
-**Example (create a course module listing from a course folder)**:
+**Example (create a course module listing from a course folder)**::
 
 	{{ list_folder("courses/marketing/cim-professional-certificate-in-marketing", title="Other modules in this course:", filters={ "portal_type" : "Module"}) }}
+
+translate
+---------
+
+Translation catalog look up with an message id.
+
+Translates the message to another language. The function assumes 
+the translation is available in po files.
+
+**Parameters**
+
+- *message*: gettext msgid to translate
+
+- *domain*: gettext domain where the message belongs, optional, defaults to "plone"
+
+- *language*: target language code, e.g. fi, optional, defaults to the currently selected language
+
+** Return **
+
+- translated string
+
+** Example **::
+
+	{{ translate8
+	
+	
+For available default Plone msgids, see `PloneTranslations product source <https://dev.plone.org/collective/browser/PloneTranslations/trunk/i18n>`_
+	
+current_language
+----------------
+
+Get the current language for the user.
+
+This enables conditional showing based on the language.
+
+** Parameters **
+
+- No parameters
+
+** Return **
+
+- The current language code as a string, e.g. "fi"
+
+** Example **::
+
+	{% if current_language() == "fi" %}
+		Päivää
+	{% else %}
+		Hello
+	{% endif %}
+
 
 Advanced examples
 =================

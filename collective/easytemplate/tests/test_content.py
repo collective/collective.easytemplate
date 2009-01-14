@@ -129,6 +129,27 @@ class ContentTestCase(EasyTemplateTestCase):
         self.assertTrue("doc2" in output)
         self.assertTrue("folder2" in output)
         self.assertFalse("not-listed-item" in output)
+        
+    def test_unfiltered(self):
+        """ Test unfiltered template input. 
+        
+        See that unfiltered code is succesfully evaluated if present.
+        """
+        
+        # this is a test case for django
+        engine.setDefaultEngine()        
+        self.createContent()
+        self.portal.folder.easy_template.setText("Foobar")
+        self.portal.folder.easy_template.setUnfilteredTemplate("{{ explore(context) }}")
+        output = self.portal.folder.easy_template.getTemplatedText()
+        
+        messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()                
+        for m in messages: print str(m.message)
+        
+        self.assertEqual(len(messages), 0)
+                
+        # Should have variables dumped         
+        self.assertTrue("easy_template" in output)
             
 def test_suite():
     suite = unittest.TestSuite()

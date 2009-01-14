@@ -70,7 +70,7 @@ class TestViewlets(EasyTemplateTestCase):
         """ Test arbitary portal queries. """
         
         val = self.runSnippet('Test {{ query({"portal_type" : "TemplatedDocument"})  }}')
-        print "got query:" + val
+        #print "got query:" + val
         
         val = self.runSnippet('Test {{ query({"portal_type" : "Templated Document"})  }}')
 
@@ -88,10 +88,20 @@ class TestViewlets(EasyTemplateTestCase):
     def test_explore_dict(self):
         self.portal.folder.easy_template.test = { "foobar" : "123" }
         val = self.runSnippet("Test {{ explore(context.test) }}")
+        self.assertTrue("foobar" in val)
+        self.assertTrue("123" in val)
 
     def test_explore_int(self):        
         self.portal.folder.easy_template.test = 1.0
         val = self.runSnippet("Test {{ explore(context.test) }}")
+        
+    def test_explore_brain(self):
+        portal_catalog= self.portal.portal_catalog
+        results = portal_catalog.queryCatalog({"portal_type" : "Document"})        
+        self.portal.folder.easy_template.test = results
+        val = self.runSnippet("Test {{ explore(context.test[1]) }}")
+        # Contect created by base.py 
+        self.assertTrue("Title" in val)
 
 
 def test_suite():

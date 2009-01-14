@@ -81,8 +81,12 @@ Otherwise Templated Portlet behaves as the stock Static Portlet.
 
 If you get errors in your template code, you can toggle on "Catch errors" on Template schemata
 and view detailed exception tracebacks in Zope log.
-  
 
+Testing
+-------
+
+Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order to run the unit tests.
+  
 Author
 ------
 

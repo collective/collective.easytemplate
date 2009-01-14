@@ -24,11 +24,12 @@ def setup_app():
     # the ZCML.
     
     ztc.installPackage('collective.easytemplate')
+    ztc.installProduct('Products.LinguaPlone')    
+    ztc.installProduct('PlacelessTranslationService')
     
-# The order here is important.
 
 setup_app()
-ptc.setupPloneSite(products=['collective.easytemplate'])
+ptc.setupPloneSite(products=['collective.easytemplate', "Products.LinguaPlone:LinguaPlone"])
 
 class EasyTemplateTestCase(ptc.PloneTestCase):
     """We use this base class for all the tests in this package. If necessary,
@@ -61,6 +62,13 @@ class EasyTemplateTestCase(ptc.PloneTestCase):
         self.portal.portal_workflow.doActionFor(self.portal.folder.doc_published, "publish")
         self.portal.portal_workflow.doActionFor(self.portal.folder.easy_template, "publish")
         self.portal.portal_workflow.doActionFor(self.portal.folder, "publish")
+
+        # Update portal catalog
+        self.portal.folder.reindexObject()
+        self.portal.folder.easy_template.reindexObject()        
+        self.portal.folder.doc.reindexObject()
+        self.portal.folder.doc_published.reindexObject()
+        
         self.logout()
     
     def runSnippet(self, str, admin=False, assumeErrors=False):

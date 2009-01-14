@@ -12,3 +12,11 @@ from collective.easytemplate.tags.rss import RSSFeedTag
 
 # Registered tags - function name - ITag interface instance
 tags = [ListFolder(), QueryTag(), ViewletTag(), PortletTag(), RSSFeedTag(), ExploreTag() ]
+
+try:
+    import Products.LinguaPlone
+    from collective.easytemplate.tags.i18n import CurrentLanguageTag, TranslateTag
+    tags.append(CurrentLanguageTag())
+    tags.append(TranslateTag())
+except:
+    pass

@@ -10,7 +10,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import interface
 
 from collective.templateengines.interfaces import *
-
+from Products.ZCatalog.CatalogBrains import AbstractCatalogBrain
 
 __author__ = """Mikko Ohtamaa <mikko@redinnovation.com>"""
 __docformat__ = 'epytext'
@@ -142,17 +142,7 @@ class ExploreTag(object):
     def getName(self):
         return "explore"
     
-    def render(self, scriptingContext, object):
-        """             
-        Use Python PrettyPrinter to dump objects 
-        to HTML table.
-        """
-
-        import pprint
-        import StringIO
-        buffer = StringIO.StringIO()
-        pp = pprint.PrettyPrinter(indent=4, depth=3, stream=buffer)
-        
+    def renderObject(self, object, pp, buffer):
         print >> buffer, '<table class="object-explore">'
         print >> buffer, "<thead>"
         print >> buffer, "<tr>"
@@ -171,20 +161,38 @@ class ExploreTag(object):
             print >> buffer, "</td>"
             print >> buffer, "</tr>"            
             
-        if hasattr(object, "__dict__"):        
+        # Outputters, most specialized firsh
+        if isinstance(object, AbstractCatalogBrain):
+            # Zope catalog brain objects need special keying
+            for key in object.__record_schema__.keys():
+                value = object[key]
+                do_obj(key, value)
+        elif hasattr(object, "__dict__"):        
             for key, value in object.__dict__.items():
                 do_obj(key, value)
         elif type(object) == type({}):
             for key, value in object.items():
                 do_obj(key, value)            
+        elif type(object) == type([]) or type(object) == type(()):
+            # List & sequence
+            for i in range(0, len(object)):
+                self.do_obj(i, object[i])                            
         else:
             do_obj("Object", object)
 
         print >> buffer, "</tbody>"
         print >> buffer, "</table>"        
-        
+    
+    def render(self, scriptingContext, object):
+        """             
+        Use Python PrettyPrinter to dump objects 
+        to HTML table.
+        """
 
+        import pprint
+        import StringIO
+        buffer = StringIO.StringIO()
+        pp = pprint.PrettyPrinter(indent=4, depth=3, stream=buffer)
+        self.renderObject(object, pp, buffer)        
         return buffer.getvalue()
-        
-        
     

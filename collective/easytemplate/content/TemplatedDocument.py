@@ -18,7 +18,7 @@ from zope.interface import implements
 from collective.templateengines.utils import log_messages
 
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.CMFCore.permissions import View
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
@@ -53,7 +53,27 @@ schema = Schema((
                 default=u'If selected, template errors will provide debugging output.')
             ),
         ),
+
+   # 
+   TextField('unfilteredTemplate',
+        required = False,
+        default = "",
+        languageIndependent = True,
+        schemata="Template",
+        widget = TextAreaWidget(
+            label= _(
+                u"help_unfiltered_template", 
+                default=u'Unfiltered template code'),
+            description = _(
+                u'help_unfiltered_template_description', 
+                default=u'Edit template code here if you are working with raw HTML - otherwise WYSIWYG editor might scramble the result. Leave empty if normal WYSIWYG input is used.'),
+            rows = 25
+            ),
+        ),
+
+
     ),
+    
 )
 
 ##code-section after-local-schema #fill in your manual code here
@@ -100,7 +120,14 @@ class TemplatedDocument(ATDocument):
     def getTemplatedText(self):
         """ Cook the view mode output. """
         
-        text = self.getRawText()
+        # Choose between normal kupu editor input
+        # and unfiltered input
+        unfiltered = self.getUnfilteredTemplate()
+        if unfiltered != None and unfiltered.strip() != "":
+            # We are using raw HTML input
+            text = unfiltered            
+        else:
+            text = self.getRawText()
         
         engine = getEngine()
         context = getTemplateContext(self)
