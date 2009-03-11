@@ -58,7 +58,7 @@ schema = Schema((
    TextField('unfilteredTemplate',
         required = False,
         default = "",
-        languageIndependent = True,
+        languageIndependent = False,
         schemata="Template",
         widget = TextAreaWidget(
             label= _(
