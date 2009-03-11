@@ -49,7 +49,9 @@ class RSSFeedTag:
         for i in items:
             # Patch in few helpful variables
             # Format blog entry timestamps for the template
-            i["friendly_date"] = i["updated"].strftime("%Y-%m-%d")
+            if "updated" in i:
+                # all feeds don't provide this information
+                i["friendly_date"] = i["updated"].strftime("%Y-%m-%d")
             
         return items
         
