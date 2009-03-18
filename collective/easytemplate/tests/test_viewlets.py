@@ -1,6 +1,8 @@
 """
 
     Test Zope security wrapped for Jinja 2
+    
+    TODO: Reorganize this to several test cases.
 
 """
 
@@ -102,6 +104,21 @@ class TestViewlets(EasyTemplateTestCase):
         val = self.runSnippet("Test {{ explore(context.test[1]) }}")
         # Contect created by base.py 
         self.assertTrue("Title" in val)
+        
+    def test_user(self):
+        snippet = """
+        {% if portal_state.anonymous() %}
+            anon
+        {% else %}
+            logged in
+        {% endif %}     
+        """
+        val = self.runSnippet("Test " + snippet)
+        self.assertTrue("anon" in snippet)
+        
+        self.loginAsPortalOwner()        
+        val = self.runSnippet("Test " + snippet)
+        self.assertTrue("logged in" in snippet)
 
 
 def test_suite():

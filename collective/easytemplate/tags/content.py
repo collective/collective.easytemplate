@@ -6,6 +6,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.Five.browser import BrowserView
 
 from zope import interface
 
@@ -196,3 +197,34 @@ class ExploreTag(object):
         self.renderObject(object, pp, buffer)        
         return buffer.getvalue()
     
+    
+class LatestNewsView(BrowserView):
+    
+    index = ViewPageTemplateFile("latest_news.pt")
+    
+    def __call__(self):
+        self.news_items = self.context.portal_catalog.queryCatalog({"portal_type":"News Item","sort_on":"Date","sort_order":"reverse","sort_limit":self.count,"review_state":"published"})
+        return self.index()
+
+class LatestNewsTag(object):
+    """ Render latest news items """
+    
+    interface.implements(ITag)
+    
+    def getName(self):
+        return "latest_news"
+
+    def render(self, scriptingContext, count=3):
+                
+        mappings = scriptingContext.getMappings()
+        
+        # Get traversing context
+        context = mappings["context"]
+        request = mappings["request"]
+                
+        view = LatestNewsView(context, request)
+        view.count = count
+        # Put view into context acquistion chain
+        view = view.__of__(context)
+        
+        return view()

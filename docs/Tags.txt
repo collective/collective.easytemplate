@@ -74,18 +74,39 @@ To access the top level news folder:
 
    {{ portal.news }}
    
-user
-----
+portal_state
+------------
 
-user variable holds the current user of IPloneUser class.
+Information about the current state of the system. Tells things like if the user is logged
+in, navigation base, portal title, active language and so on.
+
+This object implements `IPortalState <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_ interface.
 
 Example::
 
-	{% if user.isAnonymous() %}
-	     <b>Hello Stranger</b>
+	{% if portal_state.anonymous() %}
+		anon
 	{% else %}
-	     <b>Hello {{ user.username() }}</b>	
+		logged in
 	{% endif %}
+   
+user
+----
+
+User variable holds the current user security information. 
+
+This implements `Basic user <http://api.plone.org/Plone/3.0/public/products/PluggableAuthService/AccessControl.User.BasicUser-class.html>`_ interface.
+
+The most useful feature is getting the current username via getUserName().
+
+
+member
+------
+
+User membership information. This information depends on the used 
+member backend (Plone default, LDAP, SQL, custom...).
+
+TODO: Finish
  
 portal_url
 ----------
@@ -158,13 +179,32 @@ The output is limited by the current user permissions.
 
 Return the three most fresh News Item objects sorted by date::
 
-	{{ query({portal_type="News Item", sort_on="Date", sort_order="reverse", sort_limit=3}) }}
+	{{ query({"portal_type":"News Item","sort_on":"Date","sort_order":"reverse","sort_limit":1,"review_state":"published"}) }}
 	
 Return all items in one folder::
 
 	{{ query({path={"query" : "/folder", depth: 0}}) }}
 	
+Render the latest news item, with news image attached:
+
+{{ query({portal_type="News Item", sort_on="Date", sort_order="reverse", sort_limit=3}) }}
+	
+	
 For more information about possible query formats see `this old document <http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx>`_.
+
+view
+----
+
+Render a browser:page based view. If there is no registered view for id, return a placeholder string.
+
+Parameter *name*: View id, as it appears in browser/configure.zcml.
+
+Parameter *function*: Optional. View instance method name to be called. If omitted, __call__() is used.
+
+Example (render sitemap)::
+
+   {{ view("sitemap_view", "createSiteMap") }}
+
 
 viewlet
 -------
@@ -234,6 +274,22 @@ Note: You might want to use query() tag serch limited by path for more powerful 
 **Example (create a course module listing from a course folder)**::
 
 	{{ list_folder("courses/marketing/cim-professional-certificate-in-marketing", title="Other modules in this course:", filters={ "portal_type" : "Module"}) }}
+	
+latest_news
+-----------
+
+Render list of latest published news from the site. Users collective.easytemplate.tags/latest_news.pt template.
+
+latest_news also serves as an example how to drop a custom view onto Kupu page.
+
+**Parameters**
+
+- *count*: How many items are rendered
+
+**Example**::
+
+	{{ latest_news(3) }}
+
 
 translate
 ---------

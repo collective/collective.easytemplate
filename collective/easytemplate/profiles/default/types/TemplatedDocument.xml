@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <object name="TemplatedDocument"
         meta_type="Factory-based Type Information with dynamic views"
-        xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+		i18n:domain="plone"
+		>
    
- <property name="title">Templated Document</property>
- <property name="description"></property>
+ <property name="title" i18n:translate="">Templated Document</property>
+ <property name="description" i18n:translate="">Programmatically generated page</property>
  <property name="content_icon">document_icon.gif</property>
  <property name="content_meta_type">TemplatedDocument</property>
  <property name="product">collective.easytemplate</property>

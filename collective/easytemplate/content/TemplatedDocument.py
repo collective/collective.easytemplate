@@ -3,9 +3,9 @@
     Document which allows automatic template variables substitution.
     
 """
-__author__ = """Mikko Ohtamaa <mikko@redinnovation.com>"""
+__author__ = """Mikko Ohtamaa <mikko.ohtamaa@twinapex.com>"""
 __docformat__ = 'plaintext'
-__copyright__ = "2008 Red Innovation Ltd."
+__copyright__ = "2009 Twinapex Research"
 __license__ = "GPL"
 
 import logging
@@ -30,12 +30,13 @@ from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
 from collective.easytemplate.utils import outputTemplateErrors
 
-from zope.i18nmessageid import MessageFactory
+
 # Define a message factory for when this product is internationalised.
 # This will be imported with the special name "_" in most modules. Strings
 # like _(u"message") will then be extracted by i18n tools for translation.
 
-easytemplateMessageFactory = MessageFactory('collective.easytemplate')
+from collective.easytemplate.messages import easytemplateMessageFactory
+
 _ = easytemplateMessageFactory
 
 schema = Schema((
@@ -62,10 +63,10 @@ schema = Schema((
         schemata="Template",
         widget = TextAreaWidget(
             label= _(
-                u"help_unfiltered_template", 
+                u"unfiltered_template_label", 
                 default=u'Unfiltered template code'),
             description = _(
-                u'help_unfiltered_template_description', 
+                u'unfiltered_template_description', 
                 default=u'Edit template code here if you are working with raw HTML - otherwise WYSIWYG editor might scramble the result. Leave empty if normal WYSIWYG input is used.'),
             rows = 25
             ),

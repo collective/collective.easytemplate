@@ -15,6 +15,8 @@ from zope.component import getUtility, getAdapters
 from zope.component import getMultiAdapter, getSiteManager
 from zope.component import getUtility, queryUtility
 from zope.component import getSiteManager
+from zope.component import adapts, queryMultiAdapter
+
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.publisher.interfaces.browser import IBrowserView
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
@@ -42,6 +44,8 @@ __docformat__ = 'epytext'
 __copyright__ = "2009 Twinapex Research"
 __license__ = "GPL"
 
+# Declare some dumminess to satisfy the complexty of viewlet management
+
 class IDummyViewletManager(zope.viewlet.interfaces.IViewletManager):
     """ Refer to zope.viewlet README.txt """
     pass
@@ -55,6 +59,39 @@ class DummyView(BrowserView):
     
 class DummyContent(object):
       zope.interface.implements(Interface)
+
+
+class ViewTag(object):
+    """ A tag to render a BrowserPage view by its id. 
+        
+    """
+
+    interface.implements(ITag)
+    
+    def getName(self):
+        return "view"
+
+    def render(self, scriptingContext, name, function="__call__"):
+        """
+        """
+        
+        mappings = scriptingContext.getMappings()
+        
+        # Get traversing context
+        context = mappings["context"]
+        request = mappings["request"]
+        
+        view = queryMultiAdapter((context, request), name=name)
+        
+        if view == None:
+            return u"[ No view " + unicode(name) + u" ]"
+        
+       
+        if function == "__call__":        
+            return view()
+        else:
+            func = getattr(view, function)    
+            return func()
 
       
 class ViewletTag(object):

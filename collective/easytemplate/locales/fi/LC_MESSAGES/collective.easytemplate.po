@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-03-18 01:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: fi\n"
+"Language-Name: Finnish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.easytemplate\n"
+
+#: ./actions/mail.py:163
+msgid "Add Templated Mail Action"
+msgstr ""
+
+#: ./actions/mail.py:165
+msgid "Configure element"
+msgstr ""
+
+#: ./actions/mail.py:177
+msgid "Edit Templated Mail Action"
+msgstr ""
+
+#: ./actions/mail.py:45
+msgid "Email recipients"
+msgstr ""
+
+#: ./actions/mail.py:70
+msgid "Email report to ${recipients}"
+msgstr ""
+
+#: ./actions/mail.py:41
+msgid "Email source"
+msgstr ""
+
+#: ./actions/mail.py:164
+msgid "Email using template variables."
+msgstr ""
+
+#: ./actions/mail.py:50
+msgid "Message"
+msgstr ""
+
+#: ./actions/mail.py:38
+msgid "Subject"
+msgstr ""
+
+#: ./actions/mail.py:39
+msgid "Subject of the message"
+msgstr ""
+
+#: ./browser/portlets/interfaces.py:12
+msgid "Text"
+msgstr ""
+
+#: ./actions/mail.py:42
+msgid "The email address that sends the email. If no email is provided here, it will use the portal from address."
+msgstr ""
+
+#: ./actions/mail.py:46
+msgid "The email where you want to send this message. To send it to different email addresses, just separate them with ,"
+msgstr ""
+
+#: ./content/TemplatedDocument.py:98
+msgid "The page structure contains errors. Please contact the site manager. Content editors can see the error if they enable Catch errors checkbox on Edit > Template tab"
+msgstr ""
+
+#: ./browser/portlets/interfaces.py:13
+msgid "The text to render. May include dynamic tags."
+msgstr ""
+
+#: ./actions/mail.py:51
+msgid "Type in here the message that you want to mail."
+msgstr ""
+
+#. Default: "A portlet which can display HTML text with dynamic tags"
+#: ./browser/portlets/templated.py:80
+msgid "description_static_portlet"
+msgstr ""
+
+#. Default: "Catch errors"
+#: ./content/TemplatedDocument.py:51
+msgid "help_catch_errors"
+msgstr "Koodivirheet"
+
+#. Default: "If selected, template errors will provide debugging output."
+#: ./content/TemplatedDocument.py:54
+msgid "help_catch_errors_description"
+msgstr ""
+
+#. Default: "Add templated text portlet"
+#: ./browser/portlets/templated.py:77
+msgid "title_add_templated_portlet"
+msgstr ""
+
+#. Default: "Edit templated text portlet"
+#: ./browser/portlets/templated.py:91
+msgid "title_edit_static_portlet"
+msgstr ""
+
+#. Default: "Edit template code here if you are working with raw HTML - otherwise WYSIWYG editor might scramble the result. Leave empty if normal WYSIWYG input is used."
+#: ./content/TemplatedDocument.py:70
+msgid "unfiltered_template_description"
+msgstr ""
+
+#. Default: "Unfiltered template code"
+#: ./content/TemplatedDocument.py:67
+msgid "unfiltered_template_label"
+msgstr "Raakakoodi"
+

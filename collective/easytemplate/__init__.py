@@ -9,6 +9,9 @@ from Products.CMFCore.permissions import setDefaultRoles
 
 from content import TemplatedDocument
 
+
+
+
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
 

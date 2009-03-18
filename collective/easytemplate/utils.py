@@ -26,7 +26,10 @@ def outputTemplateErrors(messages, request=None, logger=None):
     
     if request != None:
         for msg in messages:            
-            IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
+            if msg.getException():
+                IStatusMessage(request).addStatusMessage(str(msg.getException()[0]), type="error")
+            else:
+                IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
     
     if logger != None:
         log_messages(logger, messages)        
