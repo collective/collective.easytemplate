@@ -1,7 +1,7 @@
 <div class="latest-news">
 	<div class="news-item" tal:repeat="news view/news_items">	
 	
-		<a tal:attributes="href news/absolute_url" tal:content="news/Title" />
+		<a tal:attributes="href string:${news/getURL}" tal:content="news/Title" />
 		<img tal:attributes="src string:${news/getURL}/image_thumb">
 		<p tal:content="news/Description" />
 			
