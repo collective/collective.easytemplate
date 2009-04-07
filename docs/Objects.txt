@@ -1,7 +1,7 @@
-Templated documents
-=====================
+Templated elements
+==================
 
-Easy Template product adds templating possibilities to several Plone elements.
+Easy Template product makes it possible to use templates in the following places.
 
 Document
 --------
@@ -12,10 +12,10 @@ This content item has a tab *Template* which allows you to adjust advanced
 template properties:
 
 - *Show errors*: After checking this option the error messages will be available
- to the user regardless if he/she is admin
+  to the user regardless whether he/she is admin
  
-- *Unfiltered template*: For raw HTML template input. This code is not 
-  scrambled or filtered by WYSIWYG editing. 
+- *Unfiltered template*: A field for raw HTML code input. This code is not 
+  scrambled or filtered by WYSIWYG editing or HTML filtering functions.
   
 You can debug the template code by seeing the direct template engine output
 by appending */testTemplate* to the object url. It will return 
@@ -24,15 +24,19 @@ plain text view what the cooked template has eaten.
 Portlets
 --------
 
-Use Templated Portlet portlet to add scripts to your portlets.
+Use Templated Portlet portlet to add scripts to your portlets. Templated Portlet is based on `
 
-Enter template code to Kupu editor.
+Enter the template code in the visual editor. Raw HTML editing is not yet supported here.
 
-EMail 
+Email
 -----
 
-Use Templated Mail Action to add scripts to your content rules outgoing email messages.
+Use Templated Mail Action to add scripting to your content rules based outgoing email messages.
 
-Template output is available in *recipients*, *subject* and *message* fields.
+Template expansion is available in all the fields: *recipients*, *subject* and *message*.
+
+
+
+
 
 

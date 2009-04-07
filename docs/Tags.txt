@@ -1,137 +1,21 @@
-Template authoring guide
-========================
-
-This document describes available variables and functions in 
-Easy Template template products. Some example template snippets
-are included.
-
-Introduction
-============
-
-Jinja template engine is used. The template engine is switchable,
-so you can switch it to your preferred template engine with little trouble.
-
-For available Jinja language constructs,
-please consult `Jinja documentation <http://jinja.pocoo.org/2/documentation/templates>`_.
-
-The default Jinja backend exposes Python functions as functions,
-so you need to add () after them to get a sensible value out of the function.
-
-Template context
-================
-
-Template context holds the top level variables you have available in 
-your template. This is defined in `context/plone.py <https://dev.plone.org/collective/browser/collective.templateengines/trunk/collective/templateengines/context/plone.py>`_.
-
-Archetypes based objects
-------------------------
-
-Archetypes based objects are exposed as is to the template engine.
-
-You can call getXXX functions and other schema accessor functions to query 
-individual fields values. These field expositions depend on the manipulated
-object and are defined in the object schema file::
-
-   {{ context.Title() }}
-   
-   {{ context.getBody() }} 
-
-If you have a write access to the object you can even set values, though this is 
-not useful::
-
-   {{ context.setTitle('Moo the novel') }}
- 
- 
-context
--------
-
-Context is the current Template Document object. You can use context to
-access.
-	
-Traversing
-----------
-
-To access the other objects beside the current Template Document you can traverse
-in the folder hierarchy using Zope's traversing mechanism.
-
-Get the parent folder::
-
-  {{ context.aq_parent }}
-  
-Get the sister page (in the same folder) with URL id 'sister':
-
-  {{ context.aq_parent.sister }}
-
-portal
-------
-
-Portal is the root Plone object of your site. You can use it as a traversing
-start point to query other objects on your site. E.g.
-
-Some of available methods are described in IPortal interface.
-
-To access the top level news folder:
-
-   {{ portal.news }}
-   
-portal_state
-------------
-
-Information about the current state of the system. Tells things like if the user is logged
-in, navigation base, portal title, active language and so on.
-
-This object implements `IPortalState <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_ interface.
-
-Example::
-
-	{% if portal_state.anonymous() %}
-		anon
-	{% else %}
-		logged in
-	{% endif %}
-   
-user
-----
-
-User variable holds the current user security information. 
-
-This implements `Basic user <http://api.plone.org/Plone/3.0/public/products/PluggableAuthService/AccessControl.User.BasicUser-class.html>`_ interface.
-
-The most useful feature is getting the current username via getUserName().
-
-
-member
-------
-
-User membership information. This information depends on the used 
-member backend (Plone default, LDAP, SQL, custom...).
-
-TODO: Finish
- 
-portal_url
-----------
-
-Plone portal_url tool. Call to return the site root url.
-
-Example::
-
-	<a href="{{ portal_url() }}">Home</a>
-
 Tags
 ====
 
-These are custom functions you are able to use in your tags.
-They are registered in tagconfig.py file in the product folder.
+Tags are custom functions you are able to use in your templates. 
+They provide an easy way to extend templates with your own Python functions.
+Tags are registered in tagconfig.py file in the collective.easytemplate package.
+
+Easy Template comes with several useful tags out of the box and they are explained below.
 
 explore
 -------
 
 Dump object methods and variables for developer consumption.
 
-**You want to disable this tag on production site, since it is
-read priviledge escalation. You have been warned **.
+**Warning**. This tag is not multiuser safe.
+You want to disable this tag on production site, since it is a read priviledge escalation.
 
-Explore tag helps you to build scripts by exposing what the objects have eaten.
+Explore tag helps you to build scripts by exposing the variables and methods insde the objects.
 It prints a tabular output of available methods and variables.
 
 **Parameters**:
@@ -142,7 +26,7 @@ Show the guts of current Templated Document object::
 
 	{{ explore(context) }}
 	
-Show what we have in the portal root::
+Show what we have available in the portal root::
 
 	{{ explore(portal) }}
 	
@@ -179,16 +63,12 @@ The output is limited by the current user permissions.
 
 Return the three most fresh News Item objects sorted by date::
 
-	{{ query({"portal_type":"News Item","sort_on":"Date","sort_order":"reverse","sort_limit":1,"review_state":"published"}) }}
+	{{ query({"portal_type":"News Item","sort_on":"Date","sort_order":"reverse","sort_limit":3,"review_state":"published"}) }}
 	
-Return all items in one folder::
+Return items in a particular folder::
 
 	{{ query({path={"query" : "/folder", depth: 0}}) }}
-	
-Render the latest news item, with news image attached:
-
-{{ query({portal_type="News Item", sort_on="Date", sort_order="reverse", sort_limit=3}) }}
-	
+		
 	
 For more information about possible query formats see `this old document <http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx>`_.
 
@@ -229,7 +109,7 @@ source code.
 
 - *url*: URL to RSS or RSS
 
-- *cache_timeout: Optional, default value 60. Seconds how often the HTTP GET request should be performed.
+- *cache_timeout*: Optional, default value 60. Seconds how often the HTTP GET request should be performed.
 
 **Return**
 
@@ -255,9 +135,10 @@ list_folder
 -----------
 
 List folder content and return the output as <ul> tag. Mostly suitable for 
-testing and simplified folder output generating in portlets.
+simple folder output generating. 
 
-Note: You might want to use query() tag serch limited by path for more powerful output formatting.
+The formatting options offered here are not particular powerful. 
+You might want to use query() tag for more powerful output formatting.
 
 **Parameters**
 
@@ -278,9 +159,9 @@ Note: You might want to use query() tag serch limited by path for more powerful 
 latest_news
 -----------
 
-Render list of latest published news from the site. Users collective.easytemplate.tags/latest_news.pt template.
+Render list of latest published news from the site. Uses *collective.easytemplate.tags/latest_news.pt* template.
 
-latest_news also serves as an example how to drop a custom view onto Kupu page.
+latest_news also serves as an example how to drop a custom view into the visual editor.
 
 **Parameters**
 
@@ -294,10 +175,10 @@ latest_news also serves as an example how to drop a custom view onto Kupu page.
 translate
 ---------
 
-Translation catalog look up with an message id.
+Translation catalog look up with an message id. 
 
 Translates the message to another language. The function assumes 
-the translation is available in po files.
+the translation is available in gettext po files.
 
 **Parameters**
 
@@ -307,13 +188,13 @@ the translation is available in po files.
 
 - *language*: target language code, e.g. fi, optional, defaults to the currently selected language
 
-- *default*: The default value to be displayed if the msgid is missing for the selected langauge
+- *default*: The default value to be displayed if the msgid is missing for the selected language
 
 ** Return **
 
 - translated string
 
-** Examples **::
+Examples::
 
 	{{ translate("missing_id", default="Foobar")  }}
 	
@@ -337,7 +218,7 @@ This enables conditional showing based on the language.
 
 - The current language code as a string, e.g. "fi"
 
-** Example **::
+Example::
 
 	{% if current_language() == "fi" %}
 		Päivää
@@ -366,7 +247,7 @@ lack suitable msgids, a custom translation catalog *twinapex* is used.
 This example must be put into unfiltered template input box,
 since Kupu seems to insert unwanted &nbsp; characters into the code.
 
-**Example**::
+Example::
 
 	<table class="front-page two-column">
 		<tbody>
@@ -418,7 +299,7 @@ since Kupu seems to insert unwanted &nbsp; characters into the code.
 	</table>
 
 Debugging tips
-==============
+--------------
 
 If the template compilation fails you might have made copy-paste errors.
 Please view the template in raw HTML mode to track down the errors:
@@ -426,3 +307,5 @@ Please view the template in raw HTML mode to track down the errors:
 * HTML tags inside a template expression
 
 * Hard line breaks inside a template expression
+
+

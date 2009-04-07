@@ -1,16 +1,17 @@
-About Template Engine
-=====================
+About the template engine backends
+==================================
 
 By default, Jinja 2 template engine is used. 
 Please refer to `Jinja 2 documentation <http://jinja.pocoo.org/2/documentation/templates>`_
 for syntax. This syntax is very easy non-XML syntax resembling Django templates.
 
-Easy non-XML Jinja syntax means that For the basic usage, no HTML knowledge is needed.
-You can use template logic in HTML and non-HTML views of Kupu. 
+Easy syntax means that for the basic usage, no HTML knowledge is needed.
+You can use template logic in both the HTML source code and visual editor views. 
 
 Template engine is switchable in the application code. Besides Jinja, 
-Django and Cheetah engines are supported by `collective.templateengines
- <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
- backend. Only Jinja supports Zope security, so if you switch the engine
- the template editor is able to escape the template sandbox and have
-managerial acceess to the site.
+Django and Cheetah engines are supported by `collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
+backend. 
+
+Only on Jinja engine Zope security is supported. Other template 
+engines do not provide compatible sandboxes.
+

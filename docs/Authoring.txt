@@ -1,0 +1,10 @@
+Template authoring guide
+========================
+
+This document describes available variables and functions in 
+Easy Template elements. Some example template snippets are included.
+
+The default Jinja backend exposes tags as functions. Since Jinja
+makes clear distinction between variables and functions, you need to add () 
+after tags to render them.
+

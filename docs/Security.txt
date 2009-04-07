@@ -1,12 +1,15 @@
 Security
 ========
 
-Template functions are limited to the current user priviledges - 
+By default, template functions are limited to the current user priviledges - 
 this means that output may vary depending on which user you have logged in.
+The user should not be able to escape Zope sandbox. 
 
-Some tags are not secure and you need to disable them on the production site.
+However, some tags are not totally secure (escapes viewing priviledges)
+and you might want to disable them on multi-user production site.
 
-Security is not guaranteed for this product. For sites with high security demands,
-please consult the author for the product usage.
+Security is not guaranteed for this product. For sites with high security requirements,
+please consult the author.
 
 Security unit tests are available `here <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/tests/test_jinja_zope_security.py>`_.
+

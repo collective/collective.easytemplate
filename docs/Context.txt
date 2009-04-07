@@ -1,0 +1,113 @@
+Template context
+================
+
+Template context holds the top level variables you have available in 
+your template. 
+
+Variables are defined in `context/plone.py <https://dev.plone.org/collective/browser/collective.templateengines/trunk/collective/templateengines/context/plone.py>`_ 
+source code file.
+
+context variable
+----------------
+
+Plone uses `subsystem called Archetypes <http://plone.org/products/archetypes>`_ to define content types.
+Content types are constructed from fields defined in the schema. All the default Plone content types
+(documents, folders, events, news, etc.) are Archetypes based.
+
+Archetypes based objects are exposed "as is" to the template engine in the *context* variable.
+Other context variable functions are defined by Python classes running the object.
+
+You can call getXXX accessor functions to query  individual fields values. The exposed fields are 
+defined in the schema source code of Archetypes object.
+
+Examples below.
+
+Print content title::
+
+   {{ context.Title() }}
+   
+Print document body text (HTML)::
+   
+   {{ context.getBody() }} 
+   
+Get the URL of the current object::
+
+   {{ context.absolute_url() }}
+
+If you have a write access to the object you can even set values in the template, though this is 
+not very useful::
+
+   {{ context.setTitle('Moo the novel') }}
+ 
+	
+Traversing
+----------
+
+Traversing is a mechanism to look up objects in Zope's object graph.
+
+To access the other objects beside the current Template Document you can traverse
+in the folder hierarchy using Zope's traversing mechanism.
+
+Get the parent folder::
+
+  {{ context.aq_parent }} 
+  
+Folder content objects can be traversed using the object id.
+  
+Get the sister page in the current folder which has URL id 'sister'::
+
+  {{ context.aq_parent.sister }}
+
+portal
+------
+
+Portal is the root Plone object of your site. You can use it as a traversing
+start point to query other objects on your site. E.g.
+
+Some of available methods are described in IPortal interface.
+
+To access the top level news folder::
+
+   {{ portal.news }}
+   
+portal_state
+------------
+
+portal_state stores information about the current state of the system. Tells things like if the user is logged
+in, navigation base, portal title, active language and so on.
+
+This object implements `IPortalState <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_ interface.
+
+Example how to separate output for anonymous and logged in users::
+
+	{% if portal_state.anonymous() %}
+		anon
+	{% else %}
+		logged in
+	{% endif %}
+   
+user
+----
+
+User variable holds the current user security information. 
+
+This implements `Basic user <http://api.plone.org/Plone/3.0/public/products/PluggableAuthService/AccessControl.User.BasicUser-class.html>`_ interface.
+
+The most useful feature is getting the current username via getUserName().
+
+
+member
+------
+
+User membership information. This information depends on the used 
+member backend (Plone default, LDAP, SQL, custom...).
+
+portal_url
+----------
+
+portal_url returns the current portal root url when called.
+
+Example::
+
+	<a href="{{ portal_url() }}">Home</a>
+	

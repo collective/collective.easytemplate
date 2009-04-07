@@ -1,8 +1,0 @@
-Serving different content for anonymous and logged in users
-===========================================================
-
-You can do this right in Kupu.
-
-Just write::
-
-{% if user.

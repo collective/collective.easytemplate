@@ -1,0 +1,94 @@
+Introduction
+============
+
+Easy Template (collective.easytemplate) products brings easy dynamic texts to Plone. 
+You don't need to create full blown product just for one dynamic page anymore - 
+the most simplest things can be typed straight from the visual editor.
+
+Templating is a way to add simple programming logic to text output. 
+This products adds or enhances templating supports on various parts
+of Plone site.
+
+Motivation 
+----------
+
+Plone lacks out of the box support for custom, extensible, templating support for content editors.
+
+Use cases
+---------
+
+Possible use cases are e.g.
+
+* Adding dynamic listings and tables on pages, like news listing
+
+* Adding dynamic email bodies, titles and receivers in content rules actions
+
+* Adding generated content to content rule action emails
+
+* Creating a simple text portlet dynamically
+
+Example
+-------
+
+The following example demostrates how text in Templated Document edit mode gets translated to generated HTML snippet in the view mode.
+
+You write in Kupu::
+
+  Hello user!
+  
+  Please select one course from below:
+  
+  {{ list_folder("courses") }}
+ 
+will result to the output:
+
+  Hello user!
+  
+  Please select one course from below:
+  
+  * `Math <http://example.example>`_
+  
+  * `Marketing <http://example.example>`_
+  
+  * `Chemistry <http://example.example>`_
+
+
+Installation 
+------------
+
+Add to your buildout::
+
+	eggs = 
+	    collective.templateengines
+		collective.easytemplate
+		
+	zcml = 
+		collective.easytemplate
+	
+Run Add-on product installer for *Easy Template* product.
+
+collective.easytemplate depends on `collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
+and `Jinja2 <http://pypi.python.org/pypi/Jinja2>`_ template engine. 
+
+
+Running unit tests
+------------------
+
+Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order to run all unit tests.
+  
+Author
+------
+
+Mikko Ohtamaa
+
+`Twinapex Research, Oulu, Finland <http://www.twinapex.com>`_ - High quality Python hackers for hire
+
+
+Sponsorship
+------------
+
+The development of this product was sponsored by `London School of Marketing <http://londonschoolofmarketing.com>`_.
+
+
+
+

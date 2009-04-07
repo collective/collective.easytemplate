@@ -1,0 +1,19 @@
+Registering new tags
+====================
+
+If you want to add your template functions 
+you must add them to collective.easytemplate.tagconfig module (note:
+in the future Zope configuration directives and ZCML can be used
+to register the tags).
+
+All tags implement collective.templateengine.interfaces.ITag interface.
+
+For example code, see the existing tags in collective.easytemplate.tags package.
+
+Example how to register a custom tag (run in your product's initialize() method)::
+
+	from collective.easytemplate import tagconfig
+	
+	from myproducts import MyTag
+	
+	tagconfig.tags.append(MyTag())
