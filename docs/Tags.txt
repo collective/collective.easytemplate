@@ -32,7 +32,7 @@ Show what we have available in the portal root::
 	
 Show what was returned by a function which returns a list - take the first element::
 
-	{{ explore(query({portal_type="Folder})[0]) }}
+	{{ explore(query({"portal_type":"Folder})[0]) }}
 
 
 query

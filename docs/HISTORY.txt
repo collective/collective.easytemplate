@@ -1,6 +1,18 @@
 Changelog
 =========
 
+0.7 - 0.7.1
+-----------
+
+* Added outgoing email example
+
+* Some README.txt fixes
+
+0.3 - 0.7
+---------
+
+* Major rework
+
 0.3
 ----------------
 

@@ -33,8 +33,109 @@ Email
 
 Use Templated Mail Action to add scripting to your content rules based outgoing email messages.
 
-Template expansion is available in all the fields: *recipients*, *subject* and *message*.
+Template expansion is available in all the fields: *recipients*, *subject* and *message*. You can dynamically
+look up the receiver email based on the context object - it doesn't need to be a fixed address.
 
+Below is an advanced example how to define templated outgoing email which is triggered from a workflow action.
+
+profiles/defaul/contentrules.xml::
+
+	<?xml version="1.0"?>
+	<contentrules>
+		
+	 <rule name="email_local_coordinator_about_local_user_approval" title="Send email to LC when new LU needs approval"
+	    description="Send email to local coordinators that management has approved new member to their center and local coordinator actions are needed"
+	    enabled="True" event="Products.CMFCore.interfaces.IActionSucceededEvent"
+	    stop-after="False">
+	  <conditions>
+	   <condition type="plone.conditions.WorkflowTransition">
+	    <property name="wf_transitions">
+	     <element>my_workflow_transition_id_here</element>
+	    </property>
+	   </condition>
+	  </conditions>
+	  <actions>
+		
+	   <action type="collective.easytemplate.actions.Mail">
+	    <property name="source">{{ portal.getProperty('email_from_address') }}</property>
+	    <property name="message">
+	New local user {{ title }} needs approval.
+	
+	Please approve local user at
+	
+	{{ context.absolute_url() }}
+	
+	    </property>
+	    <property name="recipients">{{ context.getTheReceiverEmailAddressFromTheContextSomehow() }}</property>
+	    <property name="subject">New local user {{ title }} needs approval</property>
+	   </action>   
+	  </actions>
+	 </rule>
+	 
+	
+	<assignment
+	    location="/"
+	    name="email_local_coordinator_about_local_user_approval"
+	    enabled="True"
+	    bubbles="True"
+	    />	
+	
+	
+	</contentrules>
+
+Then sample unit testing code to test this::
+
+	from zope.component import getUtility, getMultiAdapter, getSiteManager
+	from Products.MailHost.interfaces import IMailHost
+	from Products.SecureMailHost.SecureMailHost import SecureMailHost
+
+	class DummySecureMailHost(SecureMailHost):
+	    meta_type = 'Dummy secure Mail Host'
+	    def __init__(self, id):
+	        self.id = id
+	        self.sent = []
+	        
+	        self.mto = None
+	
+	    def _send(self, mfrom, mto, messageText, debug=False):        
+	        self.sent.append(messageText)
+	        self.mto = mto
+
+	...
+	
+	class BaseTestCase:
+	    """We use this base class for all the tests in this package. If necessary,
+	    we can put common utility or setup code in here.
+	    
+	    Mix-in class, also include FunctionalTestCase or PloneTestCase.
+	    """
+	    
+	    def afterSetUp(self):
+			...        
+	        self.loginAsPortalOwner()
+	        sm = getSiteManager(self.portal)
+	        sm.unregisterUtility(provided=IMailHost)
+	        self.dummyMailHost = DummySecureMailHost('dMailhost')
+	        sm.manage_changeProperties({'email_from_address': 'moo@isthemasteofuniverse.com'})
+	        sm.registerUtility(self.dummyMailHost, IMailHost)
+	        ...
+
+		def test_my_email_on_workflow_transition(self):
+			self.workflow = self.portal.portal_workflow
+			self.portal.invokeFactory("MyContentType", "myobject")
+			myobject = self.portal.myobject
+			
+			self.dummyMailHost.sent = []
+			                
+			self.workflow.doActionFor(myobject, "my_workflow_transition_id_here")        
+			review_state = self.workflow.getInfoFor(myobject, 'review_state')
+			self.assertEqual(review_state, "my_new_workflow_state")
+			        	        
+			# Check that the email has been send
+			self.assertEqual(len(self.dummyMailHost.sent), 1) # Outgoing emails increased by one
+			
+			self.assertEqual(self.dummyMailHost.mto, ["receiver@dummy.host"])			
+			...
 
 
 
