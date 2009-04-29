@@ -2,7 +2,7 @@ Introduction
 ============
 
 Easy Template (collective.easytemplate) products brings easy dynamic texts to Plone. 
-You don't need to create full blown product just for one dynamic page anymore - 
+You don't need to create full blown product just for few dynamic pages anymore - 
 the most simplest things can be typed straight from the visual editor.
 
 Templating is a way to add simple programming logic to text output. 
@@ -24,6 +24,8 @@ Possible use cases are e.g.
 * Adding dynamic email bodies, titles and receivers in content rules actions
 
 * Adding generated content to content rule action emails
+
+* Show different text to logged in and anonymous users
 
 * Creating a simple text portlet dynamically
 
