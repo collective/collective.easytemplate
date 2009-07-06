@@ -2,7 +2,10 @@
 	<div class="news-item" tal:repeat="news view/news_items">	
 	
 		<a tal:attributes="href string:${news/getURL}" tal:content="news/Title" />
-		<img tal:attributes="src string:${news/getURL}/image_thumb">
+		
+		<img tal:define="news_object news/getObject"
+			 tal:condition="exists:news_object/image_tile"
+			 tal:attributes="src string:${news/getURL}/image_tile">
 		<p tal:content="news/Description" />
 			
 		<div style="clear: both"><!-- --></div>
