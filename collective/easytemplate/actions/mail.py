@@ -147,7 +147,7 @@ action or enter an email in the portal properties'
         
         for email_recipient in recipients:
             
-            assert len(email_recipient.strip()) > 0
+            assert len(email_recipient.strip()) > 0, "Email recipient is empty, all recipients:" + str(recipients)
             
             mailhost.secureSend(message, email_recipient, source,
                                 subject=subject, subtype='plain',
