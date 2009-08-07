@@ -86,6 +86,21 @@ class MailActionExecutor(object):
         self.templateErrors = False
         
         
+    def sanify_encoding(self, string):
+        """ Make suret that if we have utf-8 strings as unicode they will be properly decoded.
+        
+        If you put unicode letters to GenericSetup XML they are not necessarily properly translated
+        to unicode characters, but broken encoding ensures::
+        
+            u"Uusi diagnoosi t\xe4ytett\xe4v\xe4ksi: {{ title }}"
+        
+        """
+        try:
+            string = string.decode("utf-8")
+            return string
+        except:
+            return string
+        
     def __call__(self):
                         
         context = obj = self.event.object
@@ -128,7 +143,9 @@ action or enter an email in the portal properties'
         message, errors = applyTemplate(templateContext, self.element.message, logger=logger)
         any_errors |= errors
         
-        subject, errors = applyTemplate(templateContext, self.element.subject, logger=logger)
+        subject_source = self.sanify_encoding(self.element.subject)
+        
+        subject, errors = applyTemplate(templateContext, subject_source, logger=logger)
         any_errors |= errors
         
         # TODO: Should these to be added to status messaegs
