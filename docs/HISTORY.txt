@@ -1,27 +1,38 @@
 Changelog
-=========
+---------
+
+0.7.1 - 0.7.2
+=============
+
+* Fixed unicode bugs in email sending (was caused by Archetypes accessors returning mixed utf-8 and unicode)
+
+* Updated documentation
+
+* News tag was updated with additonal CSS styling options
+
+* Install also updated collective.templateengines
 
 0.7 - 0.7.1
------------
+=============
 
 * Added outgoing email example
 
 * Some README.txt fixes
 
 0.3 - 0.7
----------
+=============
 
 * Major rework
 
 0.3
-----------------
+=============
 
 * Added Templated Portlet
 
 * Refactored error output and logging
 
 0.2
-----------------
+=============
 
 * Added templated email content rule action (plone.action.TemplatedMail)
 
@@ -34,7 +45,7 @@ Changelog
 * Expose all AT schema variables as top level template variables - Cheetah couldn't traverse Zope objects
 
 0.1
-----------------
+=============
 
 * Initial release
 

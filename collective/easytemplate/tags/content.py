@@ -228,3 +228,6 @@ class LatestNewsTag(object):
         view = view.__of__(context)
         
         return view()
+    
+    
+    

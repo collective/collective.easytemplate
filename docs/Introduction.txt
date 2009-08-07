@@ -1,3 +1,5 @@
+.. contents:: :depth: 2
+
 Introduction
 ============
 
@@ -81,14 +83,17 @@ Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order 
 Author
 ------
 
-Mikko Ohtamaa
+`Twinapex Team <mailto:info@twinapex.com>`_ - Python and Plone professionals for hire. 
 
-`Twinapex Research, Oulu, Finland <http://www.twinapex.com>`_ - High quality Python hackers for hire
+* `Twinapex company site <http://www.twinapex.com>`_ (`Twinapex-yritysryhmä <http://www.twinapex.fi>`_)
 
-This product is *bruteware*. Please go to `mybrute.com <http://moo33.mybrute.com>`_ and start your
-career as a gladitor. (This computer game takes just 3 minutes from your everyday work time
-and is überfun).
+* `Twinapex company blog <http://blog.twinapex.fi>`_
 
+* `Twinapex mobile site <http://www.twinapex.mobi>`_
+
+* `More about Plone <http://www.twinapex.com/products/plone>`_ (`Lisätietoja Plone-julkaisujärjestelmästä <http://www.twinapex.fi/tuotteet/plone>`_)
+
+* `Other open source Plone products by Twinapex <http://www.twinapex.com/for-developers/open-source/for-plone>`_
 
 Sponsorship
 ------------

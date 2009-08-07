@@ -100,7 +100,7 @@ class MailActionExecutor(object):
             return string
         except:
             return string
-        
+                
     def __call__(self):
                         
         context = obj = self.event.object
@@ -143,16 +143,19 @@ action or enter an email in the portal properties'
         message, errors = applyTemplate(templateContext, self.element.message, logger=logger)
         any_errors |= errors
         
-        subject_source = self.sanify_encoding(self.element.subject)
+        #subject_source = self.sanify_encoding(self.element.subject)
+        subject_source = self.element.subject
         
         subject, errors = applyTemplate(templateContext, subject_source, logger=logger)
         any_errors |= errors
+        
+
         
         # TODO: Should these to be added to status messaegs
         if len(recipients) == 0:
             raise ValueError("Recipients could not be defined from template:" + self.element.recipients.encode("utf-8"))
 
-        if subject == None or len(subject) == 0:
+        if subject == None or len(subject) == 0:            
             raise ValueError("Subject could not be defined from template:" + self.element.subject.encode("utf-8"))
 
         if source == None or len(source) == 0:
