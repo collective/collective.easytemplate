@@ -1,6 +1,15 @@
 Changelog
 ---------
 
+0.7.2 - 0.7.3
+=============
+
+* Added TemplatedTextField which allows you to use templates easier in your AT content types
+
+* Added support for logging exceptions to site error_log service
+
+* Use EasyTemplate specific Python logging logger instead of default Plone one. This allows you to filter out template log messages. 
+
 0.7.1 - 0.7.2
 =============
 

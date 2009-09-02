@@ -97,6 +97,14 @@ Example::
 
    {{ viewlet("portal.logo") }}
 
+provider
+--------
+
+This is equivalent of TAL provider expressin which is used to render viewlet and portlet managers.
+
+To render all the left column portlets call::
+
+	{{ provider("plone.leftcolumn") }}
 
 rss_feed
 --------

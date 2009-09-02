@@ -11,6 +11,8 @@ Templating is a way to add simple programming logic to text output.
 This products adds or enhances templating supports on various parts
 of Plone site.
 
+Read more about this solution in this `blog entry <http://blog.twinapex.fi/2009/07/30/putting-views-like-sitemap-into-plone-content-tree-using-easy-template-add-on/>`_.
+
 Motivation 
 ----------
 

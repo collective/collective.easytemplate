@@ -21,6 +21,13 @@ You can debug the template code by seeing the direct template engine output
 by appending */testTemplate* to the object url. It will return 
 plain text view what the cooked template has eaten.
 
+Fields and widgets
+------------------
+
+*collective.easytemplate.fields.TemplatedTextField* allows you to edit 
+templated document code in Kupu and template is run in view mode. 
+It acts as replacement for Archetypes's TextField() for your custom content types.
+
 Portlets
 --------
 
