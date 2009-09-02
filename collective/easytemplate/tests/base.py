@@ -76,6 +76,10 @@ class EasyTemplateTestCase(ptc.PloneTestCase):
         
         @param assumeErrors: There should be error output
         """
+                
+        # Needed by PTS, needed by provider test case
+        self.portal.REQUEST["PARENTS"] = [ self.portal ]         
+        
         doc = self.portal.folder.easy_template
         self.loginAsPortalOwner()
         doc.setText(str)
@@ -85,6 +89,7 @@ class EasyTemplateTestCase(ptc.PloneTestCase):
             
         output = doc.getTemplatedText()
         messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
+        
         
         if messages:            
             for m in messages: 

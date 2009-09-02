@@ -33,9 +33,34 @@ def outputTemplateErrors(messages, request=None, logger=None):
     
     if logger != None:
         log_messages(logger, messages)        
-        
-    dump_messages(messages)
             
+    dump_messages(messages)
+    
+def logTemplateErrors(context, messages):
+    """ Put template errors to site's error_log service.
+    """
+    
+    class TemplateError(Exception):
+        """ Dummy exception to used to wrap plain messages to exceptions """
+        pass
+    
+    # Acquire error log tool from any context
+    error_log = context.error_log 
+
+    for msg in messages:            
+        if not msg.getException():
+            
+            # This is an error message without traceback
+            # Wrap plain error messages to dummy exceptions
+            
+            try:
+                raise TemplateError(msg.getMessage())
+            except Exception, e:
+                exception = e
+        else:
+            exception = msg.getException()
+
+        error_log.raising(exception)
     
 def applyTemplate(context, string, logger=None):
     """  Shortcut to run a string through our template engine.

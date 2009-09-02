@@ -28,7 +28,7 @@ from Products.ATContentTypes.content.document import ATDocumentSchema
 from collective.easytemplate.config import *
 from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
-from collective.easytemplate.utils import outputTemplateErrors
+from collective.easytemplate.utils import outputTemplateErrors, logTemplateErrors
 
 
 # Define a message factory for when this product is internationalised.
@@ -38,6 +38,8 @@ from collective.easytemplate.utils import outputTemplateErrors
 from collective.easytemplate.messages import easytemplateMessageFactory
 
 _ = easytemplateMessageFactory
+
+logger = logging.getLogger("EasyTemplate")
 
 schema = Schema((
     BooleanField('catchErrors',
@@ -113,8 +115,8 @@ class TemplatedDocument(ATDocument):
     
     def outputTemplateErrors(self, messages):
         """ Write template errors to the user and the log output. """    
-        logger = logging.getLogger("Plone")
         outputTemplateErrors(messages, request=self.REQUEST, logger=logger)
+        logTemplateErrors(self, messages)
         
     def getTemplateSource(self):
         # Choose between normal kupu editor input

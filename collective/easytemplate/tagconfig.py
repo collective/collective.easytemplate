@@ -7,11 +7,11 @@
 """
 
 from collective.easytemplate.tags.content import ListFolder, QueryTag, ExploreTag, LatestNewsTag
-from collective.easytemplate.tags.views import ViewletTag, PortletTag, ViewTag
+from collective.easytemplate.tags.views import ViewletTag, PortletTag, ViewTag, ProviderTag
 from collective.easytemplate.tags.rss import RSSFeedTag
 
 # Registered tags - function name - ITag interface instance
-tags = [ListFolder(), QueryTag(), ViewletTag(), ViewTag(), PortletTag(), RSSFeedTag(), ExploreTag(), LatestNewsTag() ]
+tags = [ListFolder(), QueryTag(), ViewletTag(), ViewTag(), PortletTag(), RSSFeedTag(), ExploreTag(), LatestNewsTag(), ProviderTag() ]
 
 try:
     # Add translations tags only if LinguaPlone is installed

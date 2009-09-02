@@ -16,6 +16,7 @@ from zope.component import getMultiAdapter, getSiteManager
 from zope.component import getUtility, queryUtility
 from zope.component import getSiteManager
 from zope.component import adapts, queryMultiAdapter
+from zope.contentprovider import interfaces as cp_interfaces
 
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.publisher.interfaces.browser import IBrowserView
@@ -182,7 +183,52 @@ class ViewletTag(object):
         view.update()
         return view.render()
         
+class ProviderTag(object):
+    """ Render content providers e.g. viewlet and portlet managers """
+    
+    interface.implements(ITag)
+    
+    def getName(self):
+        return "provider"
+    
+    def render(self, scriptingContext, name, **kwargs):
+        """
         
+        The code is took from Products.five.browser.providerexpression.
+                        
+        @param scriptingContext: Instance of collective.templateengines.interfaces.ITemplateContext        
+        """
+        
+        # Get traversing context
+        mappings = scriptingContext.getMappings()
+        context = mappings["context"]
+        request = mappings["request"]
+            
+        class Dummy(BrowserView):
+            pass
+            
+        context = context
+        request = request
+        view = Dummy(context, request)
+        view = view.__of__(context)
+
+        # Try to look up the provider.
+        provider = zope.component.queryMultiAdapter(
+            (context, request, view), cp_interfaces.IContentProvider, name)
+
+        # Provide a useful error message, if the provider was not found.
+        if provider is None:
+            raise cp_interfaces.ContentProviderLookupError("Cannot find content provider:" + name)
+
+        if getattr(provider, '__of__', None) is not None:
+            provider = provider.__of__(context)
+
+        # Stage 1: Do the state update.
+        provider.update()
+
+        # Stage 2: Render the HTML content.
+        return provider.render()
+
 class PortletTag(object):
     """ Render a portlet inside context text.
     
@@ -198,9 +244,7 @@ class PortletTag(object):
     def render(self, scriptingContext, name, **kwargs):
         """
         
-        F*ck f*ck *f*ck.
-        I am not going to live forever to learn
-        how to finish this.
+        Just too difficult.
                 
         @param scriptingContext: Instance of collective.templateengines.interfaces.ITemplateContext        
         """

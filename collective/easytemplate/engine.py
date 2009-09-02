@@ -33,15 +33,17 @@ def setupEngine(instance):
 
     _engine = instance
     
-def getTemplateContext(context):
+def getTemplateContext(context, expose_schema=True):
     """ Return context variables available for AT objects.
     
     TODO: Respect field access rights
-    
+        
     @param context: Archetypes object
+    
+    @param expose_schema: Should context try to look up fields values for the template
     """
     
-    context = ArchetypesSecureContext(context)
+    context = ArchetypesSecureContext(context, expose_schema=expose_schema)
     
     # Tags are registered at teh engine level
     return context

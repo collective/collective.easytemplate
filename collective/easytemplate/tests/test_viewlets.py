@@ -75,7 +75,10 @@ class TestViewlets(EasyTemplateTestCase):
         #print "got query:" + val
         
         val = self.runSnippet('Test {{ query({"portal_type" : "Templated Document"})  }}')
-
+        
+    def test_provider(self):
+        val = self.runSnippet('Test {{ provider("plone.leftcolumn")  }}')
+        
     def test_bad_query(self):
         
         # Bad search index does not raise any kind of error
