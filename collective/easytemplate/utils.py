@@ -45,7 +45,13 @@ def logTemplateErrors(context, messages):
         pass
     
     # Acquire error log tool from any context
-    error_log = context.error_log 
+    
+    try:
+        error_log = context.error_log
+    except AttributeError, e:
+        # Acquisition is not kicking in.... probably error happened during incomplete object creation
+        # We have no other options but fail silently here 
+        return
 
     for msg in messages:            
         if not msg.getException():
