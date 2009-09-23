@@ -35,6 +35,22 @@ Use Templated Portlet portlet to add scripts to your portlets. Templated Portlet
 
 Enter the template code in the visual editor. Raw HTML editing is not yet supported here.
 
+Portlets have TALES expression field to determine whether
+portlets should be visible or not. This allows showing
+and hiding portlets conditionally.
+
+This is useful for special cases like
+
+* Showing portlets by language
+
+* Showing portlets for specific users only
+
+* Showing portlers for certain time
+
+* etc.
+
+`Read more how to write expressions here <>`_.  
+
 Email
 -----
 

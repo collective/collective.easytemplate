@@ -81,6 +81,11 @@ Running unit tests
 ------------------
 
 Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order to run all unit tests.
+
+TODO
+----
+
+Portlet unit tests.
   
 Author
 ------

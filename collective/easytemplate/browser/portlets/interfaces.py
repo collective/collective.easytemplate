@@ -12,3 +12,8 @@ class ITemplatedPortlet(static.IStaticPortlet):
         title=_("Text"),
         description=_("The text to render. May include dynamic tags."),
         required=True)
+    
+    expression = schema.TextLine(title=_("Expression"),
+        description=_("TALES condition determining when the portlet is visible. Leave empty to be visible always. Expression evaluation errors are logged."),
+                      default=u"",
+                      required=False)

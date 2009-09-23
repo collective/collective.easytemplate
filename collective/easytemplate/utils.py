@@ -21,9 +21,10 @@ from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
 
 
-def outputTemplateErrors(messages, request=None, logger=None):
+def outputTemplateErrors(messages, request=None, logger=None, context=None):
     """ Write template errors to the user as status messages and the log output. """
     
+    # Show user status messages
     if request != None:
         for msg in messages:            
             if msg.getException():
@@ -31,9 +32,15 @@ def outputTemplateErrors(messages, request=None, logger=None):
             else:
                 IStatusMessage(request).addStatusMessage(msg.getMessage(), type="error")
     
+    # Write site error_log            
+    if context != None:
+        logTemplateErrors(context, messages)
+    
+    # Write python logging
     if logger != None:
         log_messages(logger, messages)        
-            
+    
+    # Write stdout
     dump_messages(messages)
     
 def logTemplateErrors(context, messages):
@@ -93,12 +100,11 @@ def applyTemplate(context, string, logger=None):
             
     # TODO: Compile template only if the context has been changed           
     t, messages = engine.loadString(string, False)
-    outputTemplateErrors(messages, request=request, logger=logger)    
-    
+    outputTemplateErrors(messages, request=request, logger=logger, context=context)    
     errors |= len(messages) > 0
         
-    output, messages = t.evaluate(context)
-    outputTemplateErrors(messages, request=request, logger=logger)        
+    output, messages = t.evaluate(context)    
+    outputTemplateErrors(messages, request=request, logger=logger, context=context)
     errors |= len(messages) > 0
             
     return output, errors

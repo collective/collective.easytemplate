@@ -1,6 +1,24 @@
 Changelog
 ---------
 
+0.7.3 - 0.7.4
+=============
+
+* Added condition expression to collective.template.TemplatedPortlet
+
+* Updated collective.templateengines - fixes lots of bugs with special conditions
+  like portal_factory and LinguaPlone
+
+* Added provider: template tag
+
+* Logging is more robust
+
+* Added unit tests for collective.template.TemplatedPortlet
+
+* Fixed problem in TemplatedField and None comparison. Some
+  Jinja templates posed themseles as None which caused
+  unnecessary template contains errors messages.
+
 0.7.2 - 0.7.3
 =============
 

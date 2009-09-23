@@ -49,8 +49,7 @@ class TemplatedTextField(TextField):
 
     def outputTemplateErrors(self, instance, messages):
         """ Write template errors to the user and the log output. """            
-        outputTemplateErrors(messages, request=instance.REQUEST, logger=logger)
-        logTemplateErrors(instance, messages)
+        outputTemplateErrors(messages, request=instance.REQUEST, logger=logger, context=instance)        
         
     def compile(self, text):
         """ Compile the template. """
@@ -66,29 +65,28 @@ class TemplatedTextField(TextField):
     def _getCooked(self, instance, text):
         """ Cook the view mode output. """
         
+        # expose_schema must be False, or we get recursive
+        # loop here (expose schema tries to expose this field)
         context = getTemplateContext(instance, expose_schema=False)        
             
-        t, messages = self.compile(text)
+        t, messages = self.compile(text)        
         
         self.outputTemplateErrors(instance, messages)
-        if not t:            
+        if t is None:            
             return ERROR_MESSAGE
             
         output, messages = t.evaluate(context)
         self.outputTemplateErrors(instance, messages)
-        if not output:
+        if output is None:
             return ERROR_MESSAGE            
         
         return unicode(output).encode("utf-8")
         
     def get(self, instance, **kwargs):        
-        """ Define view mode accessor for the widget """        
-        
-        
-        
+        """ Define view mode accessor for the widget """                
+            
         text = TextField.get(self, instance, **kwargs)
-        
-        
+            
         raw = kwargs.get("raw", False)
         
         if raw:
