@@ -136,6 +136,10 @@ class TemplatedPortletAssignment(static.Assignment):
     # the portlet to optimize the expression evaluation speed
     _expression_object = None
     
+    # Backwards compatibility support -
+    # if object lacks expression attribute this one is used
+    expression = None
+    
     def __init__(self, header=u"", text=u"", omit_border=False, footer=u"",
                  more_url='', hide=False, expression=""):
         self.header = header
