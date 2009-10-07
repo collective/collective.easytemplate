@@ -8,8 +8,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.7.1'
-
+version = '0.7.4'
 
 long_description = read('docs', 'Introduction.txt') + \
     read('docs', 'TemplateEngine.txt') + \
@@ -44,7 +43,8 @@ setup(name='collective.easytemplate',
       zip_safe=False,
       install_requires=['setuptools',
                         'Jinja2',
-                        'plone.portlet.static'
+                        'plone.portlet.static',
+                        'collective.templateengines'                        
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,

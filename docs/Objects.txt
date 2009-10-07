@@ -35,7 +35,7 @@ Use Templated Portlet portlet to add scripts to your portlets. Templated Portlet
 
 Enter the template code in the visual editor. Raw HTML editing is not yet supported here.
 
-Portlets have TALES expression field to determine whether
+Portlets have TALES *Expression* field to determine whether
 portlets should be visible or not. This allows showing
 and hiding portlets conditionally.
 
@@ -49,7 +49,7 @@ This is useful for special cases like
 
 * etc.
 
-`Read more how to write expressions here <>`_.  
+`Read more how to write expressions here <http://plonemanual.twinapex.fi/content/expressions.html>`_.  
 
 Email
 -----

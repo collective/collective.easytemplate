@@ -65,7 +65,6 @@ Installation
 Add to your buildout::
 
 	eggs = 
-	    collective.templateengines
 		collective.easytemplate
 		
 	zcml = 
@@ -76,16 +75,10 @@ Run Add-on product installer for *Easy Template* product.
 collective.easytemplate depends on `collective.templateengines <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=collective.templateengines>`_
 and `Jinja2 <http://pypi.python.org/pypi/Jinja2>`_ template engine. 
 
-
 Running unit tests
 ------------------
 
 Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order to run all unit tests.
-
-TODO
-----
-
-Portlet unit tests.
   
 Author
 ------

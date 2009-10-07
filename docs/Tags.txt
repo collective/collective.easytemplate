@@ -198,7 +198,7 @@ the translation is available in gettext po files.
 
 - *default*: The default value to be displayed if the msgid is missing for the selected language
 
-** Return **
+**Return**
 
 - translated string
 
@@ -218,11 +218,11 @@ Get the current language for the user.
 
 This enables conditional showing based on the language.
 
-** Parameters **
+**Parameters**
 
 - No parameters
 
-** Return **
+**Return**
 
 - The current language code as a string, e.g. "fi"
 
