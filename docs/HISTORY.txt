@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+0.7.4 - 0.7.5
+=============
+
+* Fixed release manifest (the last package was broken due to setuptools headache with the latest svn).
+  Switched to `Distribute <http://pypi.python.org/pypi/distribute>`_ to prevent the problem in the future.
+
 0.7.3 - 0.7.4
 =============
 
@@ -18,7 +24,7 @@ Changelog
 * Fixed problem in TemplatedField and None comparison. Some
   Jinja templates posed themseles as None which caused
   unnecessary template contains errors messages.
-  
+
 * Fixed lots of corner cases, mainly LinguaPlone related, which were rising exceptions
 
 0.7.2 - 0.7.3
@@ -28,7 +34,7 @@ Changelog
 
 * Added support for logging exceptions to site error_log service
 
-* Use EasyTemplate specific Python logging logger instead of default Plone one. This allows you to filter out template log messages. 
+* Use EasyTemplate specific Python logging logger instead of default Plone one. This allows you to filter out template log messages.
 
 0.7.1 - 0.7.2
 =============

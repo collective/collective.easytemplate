@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.7.4'
+version = '0.7.5'
 
 long_description = read('docs', 'Introduction.txt') + \
     read('docs', 'TemplateEngine.txt') + \
@@ -17,8 +17,8 @@ long_description = read('docs', 'Introduction.txt') + \
     read('docs', 'Authoring.txt') + \
     read('docs', 'Context.txt') + \
     read('docs', 'Tags.txt') + \
-    read('docs', 'RegisteringTags.txt') 
-    
+    read('docs', 'RegisteringTags.txt')
+
 tests_require=['zope.testing']
 
 setup(name='collective.easytemplate',
@@ -44,14 +44,14 @@ setup(name='collective.easytemplate',
       install_requires=['setuptools',
                         'Jinja2',
                         'plone.portlet.static',
-                        'collective.templateengines'                        
+                        'collective.templateengines'
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
       test_suite = 'collective.easytemplate.tests',
       entry_points="""
-      # -*- entry_points -*- 
+      # -*- entry_points -*-
       """,
       paster_plugins = ["ZopeSkel"],
       )
