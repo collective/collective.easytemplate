@@ -1,7 +1,0 @@
-Changelog
-=========
-
-0.1 (2008-07-17)
-------------------
-
- - Created the initial product [Mikko Ohtamaa].
