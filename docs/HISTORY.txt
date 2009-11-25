@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+0.7.5 - x.x.x
+=============
+
+* Fixed issue3 (Templated Documents produced AtributeError
+  when usig Link using UIDs in Kupu)
+  [hplocher]
+
 0.7.4 - 0.7.5
 =============
 
