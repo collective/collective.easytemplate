@@ -115,7 +115,9 @@ class TemplatedDocument(ATDocument):
     
     def outputTemplateErrors(self, messages):
         """ Write template errors to the user and the log output. """    
-        outputTemplateErrors(messages, request=self.REQUEST, logger=logger, context=self)
+        
+        # XXX: we cannot rely request being present
+        outputTemplateErrors(messages, request=getattr(self, "REQUEST", None), logger=logger, context=self)
         
     def getTemplateSource(self):
         # Choose between normal kupu editor input
