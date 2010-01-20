@@ -50,12 +50,12 @@ class RSSFeedTag:
     def getName(self):
         return "rss_feed"
     
-    def render(self, scriptingContext, url, cache_timeout=60):
-        """
-        TODO: Support portal local date format
-        """
+    @staticmethod
+    def getFeed(url, cache_timeout=300):
+        """ A helper method to read RSS feed status as cached.
         
-        
+        """
+
         if not url in RSSFeedTag._rss_cache:
             # Lazy construction pattern
             feed = NiceRSSFeed(url, cache_timeout)
@@ -63,6 +63,16 @@ class RSSFeedTag:
                 
         feed = RSSFeedTag._rss_cache[url]
         feed.update()
+        
+        return feed
+
+    
+    def render(self, scriptingContext, url, cache_timeout=300):
+        """
+        TODO: Support portal local date format
+        """
+        
+        feed = RSSFeedTag.getFeed(url, cache_timeout)
         
         items = feed.items
         for i in items:
