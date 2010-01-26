@@ -20,6 +20,7 @@ from collective.easytemplate.config import *
 from collective.easytemplate import interfaces
 from collective.easytemplate.engine import getEngine, getTemplateContext
 
+ERROR_MESSAGE = _("The page template code contains errors. Please see the error message from site setup -> error log.")
 
 def outputTemplateErrors(messages, request=None, logger=None, context=None):
     """ Write template errors to the user as status messages and the log output. """
@@ -109,3 +110,38 @@ def applyTemplate(context, string, logger=None):
             
     return output, errors
             
+
+def compile(text):
+    """ Compile the template. """
+    engine = getEngine()
+    
+    if text == None:
+        text = ""
+                                         
+    # TODO: Compile template only if the context has been changed           
+    t, messages = engine.loadString(text, False)
+    return t, messages            
+
+def cook(instance, request, text):
+    """ Shortcut method to render a template.
+    
+    
+    @param text: Templat text as unicode string
+    """
+    
+    # expose_schema must be False, or we get recursive
+    # loop here (expose schema tries to expose this field)
+    context = getTemplateContext(instance, expose_schema=False)        
+        
+    t, messages = compile(text)        
+        
+    outputTemplateErrors(messages, instance)
+    if t is None:            
+        return ERROR_MESSAGE
+        
+    output, messages = t.evaluate(context)
+    outputTemplateErrors(messages, request=request, context=instance)
+    if output is None:
+        return ERROR_MESSAGE            
+    
+    return unicode(output).encode("utf-8")    
