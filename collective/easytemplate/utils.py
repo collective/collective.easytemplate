@@ -93,8 +93,12 @@ def applyTemplate(context, string, logger=None):
     # TODO: Assume Plone template context - should be an explict parameter?
     request = context.getMappings()["context"].REQUEST
 
+    if string == None:
+        string = ""
+
     # We might have unicode input data which 
     # will choke Cheetah/template engine
+    
     string = string.encode("utf-8")
     
     errors=False
