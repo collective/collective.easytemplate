@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.7.5'
+version = '0.7.6'
 
 long_description = read('docs', 'Introduction.txt') + \
     read('docs', 'TemplateEngine.txt') + \
@@ -32,9 +32,9 @@ setup(name='collective.easytemplate',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='plone cheetah jinja template kupu scripting dynamic page',
-      author='Mikko Ohtamaa',
-      author_email='mikko.ohtamaa@twinapex.com',
+      keywords='plone cheetah jinja template kupu scripting dynamic page html',
+      author='mFabrik Research Oy',
+      author_email='info@mfabrik.com',
       url='http://plone.org/products/easy-template',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),

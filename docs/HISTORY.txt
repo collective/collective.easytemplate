@@ -1,8 +1,18 @@
 Changelog
 ---------
 
-0.7.5 - x.x.x
+0.7.5 - 0.7.6
 =============
+
+* Updated authors
+
+* Updated copyright
+
+* Removed metadata.xml as not needed anymore for Plone 3.3 and higher [miohtama]
+
+* Fixed issues view RSS tag and caching [miohtama]
+
+* Various fixes for special conditions when HTTP request object was not available [miohtama]
 
 * Fixed issue3 (Templated Documents produced AtributeError
   when usig Link using UIDs in Kupu)

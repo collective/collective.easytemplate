@@ -80,20 +80,20 @@ Running unit tests
 
 Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order to run all unit tests.
   
-Author
-------
+Authors
+-------
 
-`Twinapex Team <mailto:info@twinapex.com>`_ - Python and Plone professionals for hire. 
+`mFabrik Research Oy <mailto:info@mfabrik.com>`_ - Python and Plone professionals for hire.
 
-* `Twinapex company site <http://www.twinapex.com>`_ (`Twinapex-yritysryhmä <http://www.twinapex.fi>`_)
+* `mFabrik web site <http://mfabrik.com>`_ 
 
-* `Twinapex company blog <http://blog.twinapex.fi>`_
+* `mFabrik mobile site <http://mfabrik.mobi>`_ 
 
-* `Twinapex mobile site <http://www.twinapex.mobi>`_
+* `Blog <http://blog.mfabrik.com>`_
 
-* `More about Plone <http://www.twinapex.com/products/plone>`_ (`Lisätietoja Plone-julkaisujärjestelmästä <http://www.twinapex.fi/tuotteet/plone>`_)
+* `More about Plone <http://mfabrik.com/technology/technologies/content-management-cms/plone>`_ 
 
-* `Other open source Plone products by Twinapex <http://www.twinapex.com/for-developers/open-source/for-plone>`_
+Hans-Peter Locher [mr_savage]
 
 Sponsorship
 ------------
