@@ -28,11 +28,11 @@ Show the guts of current Templated Document object::
 	
 Show what we have available in the portal root::
 
-	{{ explore(portal) }}
+	{{ explore(portal) }}
 	
 Show what was returned by a function which returns a list - take the first element::
 
-	{{ explore(query({"portal_type":"Folder})[0]) }}
+	{{ explore(query({"portal_type":"Folder})[0]) }}
 
 
 query
@@ -63,11 +63,11 @@ The output is limited by the current user permissions.
 
 Return the three most fresh News Item objects sorted by date::
 
-	{{ query({"portal_type":"News Item","sort_on":"Date","sort_order":"reverse","sort_limit":3,"review_state":"published"}) }}
+	{{ query({"portal_type":"News Item","sort_on":"Date","sort_order":"reverse","sort_limit":3,"review_state":"published"}) }}
 	
 Return items in a particular folder::
 
-	{{ query({path={"query" : "/folder", depth: 0}}) }}
+	{{ query({path={"query" : "/folder", depth: 0}}) }}
 		
 	
 For more information about possible query formats see `this old document <http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx>`_.
@@ -83,7 +83,7 @@ Parameter *function*: Optional. View instance method name to be called. If omitt
 
 Example (render sitemap)::
 
-   {{ view("sitemap_view", "createSiteMap") }}
+   {{ view("sitemap_view", "createSiteMap") }}
 
 
 viewlet
@@ -95,7 +95,7 @@ Parameter *name*: Viewlet id as it appears on portal_view_customizations ZMI pag
 
 Example::
 
-   {{ viewlet("portal.logo") }}
+   {{ viewlet("portal.logo") }}
 
 provider
 --------
@@ -104,7 +104,7 @@ This is equivalent of TAL provider expressin which is used to render viewlet and
 
 To render all the left column portlets call::
 
-	{{ provider("plone.leftcolumn") }}
+	{{ provider("plone.leftcolumn") }}
 
 rss_feed
 --------
@@ -162,7 +162,7 @@ You might want to use query() tag for more powerful output formatting.
 
 **Example (create a course module listing from a course folder)**::
 
-	{{ list_folder("courses/marketing/cim-professional-certificate-in-marketing", title="Other modules in this course:", filters={ "portal_type" : "Module"}) }}
+	{{ list_folder("courses/marketing/cim-professional-certificate-in-marketing", title="Other modules in this course:", filters={ "portal_type" : "Module"}) }}
 	
 latest_news
 -----------
@@ -177,7 +177,7 @@ latest_news also serves as an example how to drop a custom view into the visual 
 
 **Example**::
 
-	{{ latest_news(3) }}
+	{{ latest_news(3) }}
 
 
 translate
@@ -229,7 +229,7 @@ This enables conditional showing based on the language.
 Example::
 
 	{% if current_language() == "fi" %}
-		Päivää
+		Paivaa
 	{% else %}
 		Hello
 	{% endif %}
@@ -262,8 +262,8 @@ Example::
 			<tr>
 				<td class="column-2">
 					<h2>
-						<a href="{{ portal_url() }}/news">
-							{{ translate("news", "twinapex") }}						
+						<a href="{{ portal_url() }}/news">
+							{{ translate("news", "twinapex") }}						
 						</a>
 					</h2>					
 					{% for item in query({"portal_type":"News Item", "review_state" : "published", "sort_on":"Date", "sort_order":"reverse", "sort_limit":3}) %}
@@ -273,32 +273,32 @@ Example::
 								{{ item.Description }}
 							</p>
 							
-							<p class="timestamp">{{ item.Date }}</p>
+							<p class="timestamp">{{ item.Date }}</p>
 						</div>
 					{% endfor %}
 					
 					<p class="more">
-						<a class="more" href="{{ portal_url() }}/news">
-							{{ translate("box_more_news_link", default="More news...") }}
+						<a class="more" href="{{ portal_url() }}/news">
+							{{ translate("box_more_news_link", default="More news...") }}
 						</a>				
 					</p>
 				</td>
 				<td class="column-2">
 					<h2>
-						<a href="{{ portal_url() }}/news">
-							{{ translate("blog", "twinapex") }}
+						<a href="{{ portal_url() }}/news">
+							{{ translate("blog", "twinapex") }}
 						</a>
 					</h2>									
 					{% for item in rss_feed("http://blog.redinnovation.com/feed/")[0:3] %}
 						<div class="fp-item">
 							<a href="{{ item.url }}">{{ item.title }}</a>
-							<p class="timestamp">{{ item.friendly_date }}</p>						
+							<p class="timestamp">{{ item.friendly_date }}</p>						
 						</div>
 					{% endfor %}
 	
 					<p class="more">
 						<a class="more" href="http://blog.twinapex.fi">
-							{{ translate("box_morelink", default="More...") }}
+							{{ translate("box_morelink", default="More...") }}
 						</a>
 					</p>
 				</td>

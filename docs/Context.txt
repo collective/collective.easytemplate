@@ -24,7 +24,7 @@ Examples below.
 
 Print content title::
 
-   {{ context.Title() }}
+   {{ context.Title() }}
    
 Print document body text (HTML)::
    
@@ -37,7 +37,7 @@ Get the URL of the current object::
 If you have a write access to the object you can even set values in the template, though this is 
 not very useful::
 
-   {{ context.setTitle('Moo the novel') }}
+   {{ context.setTitle('Moo the novel') }}
  
 	
 Traversing
@@ -50,7 +50,7 @@ in the folder hierarchy using Zope's traversing mechanism.
 
 Get the parent folder::
 
-  {{ context.aq_parent }} 
+  {{ context.aq_parent }} 
   
 Folder content objects can be traversed using the object id.
   

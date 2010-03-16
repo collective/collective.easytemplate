@@ -80,16 +80,16 @@ profiles/defaul/contentrules.xml::
 	  <actions>
 		
 	   <action type="collective.easytemplate.actions.Mail">
-	    <property name="source">{{ portal.getProperty('email_from_address') }}</property>
+	    <property name="source">{{ portal.getProperty('email_from_address') }}</property>
 	    <property name="message">
-	New local user {{ title }} needs approval.
+	New local user {{ title }} needs approval.
 	
 	Please approve local user at
 	
-	{{ context.absolute_url() }}
+	{{ context.absolute_url() }}
 	
 	    </property>
-	    <property name="recipients">{{ context.getTheReceiverEmailAddressFromTheContextSomehow() }}</property>
+	    <property name="recipients">{{ context.getTheReceiverEmailAddressFromTheContextSomehow() }}</property>
 	    <property name="subject">New local user {{ title }} needs approval</property>
 	   </action>   
 	  </actions>

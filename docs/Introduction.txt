@@ -16,7 +16,8 @@ Read more about this solution in this `blog entry <http://blog.twinapex.fi/2009/
 Motivation 
 ----------
 
-Plone lacks out of the box support for custom, extensible, templating support for content editors.
+Plone lacks out of the box support for custom, extensible, 
+templating support for content editors.
 
 Use cases
 ---------
@@ -44,7 +45,7 @@ You write in Kupu::
   
   Please select one course from below:
   
-  {{ list_folder("courses") }}
+  {{ list_folder("courses") }}
  
 will result to the output:
 
