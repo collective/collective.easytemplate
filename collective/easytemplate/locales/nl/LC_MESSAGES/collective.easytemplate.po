@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "POT-Creation-Date: 2009-10-13 15:00+0000\n"
-"PO-Revision-Date: 2009-09-20 13:24+0100\n"
-"Last-Translator: Rob Gietema <rob@fourdigits.nl>\n"
+"PO-Revision-Date: 2010-03-17 17:41+0100\n"
+"Last-Translator: Martijn Schenk <martijn.schenk@fourdigits.nl>\n"
 "Language-Team: Rob Gietema <rob@fourdigits.nl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -16,100 +16,100 @@ msgstr ""
 
 #: ./actions/mail.py:163
 msgid "Add Templated Mail Action"
-msgstr ""
+msgstr "Emailactie waaraan een template verbonden is."
 
 #: ./actions/mail.py:165
 msgid "Configure element"
-msgstr ""
+msgstr "Configuratie onderdeel"
 
 #: ./actions/mail.py:177
 msgid "Edit Templated Mail Action"
-msgstr ""
+msgstr "Bewerk Template voor emailactie"
 
 #: ./actions/mail.py:45
 msgid "Email recipients"
-msgstr ""
+msgstr "Geadresseerden"
 
 #: ./actions/mail.py:70
 msgid "Email report to ${recipients}"
-msgstr ""
+msgstr "Email rapport naar ${recipients}"
 
 #: ./actions/mail.py:41
 msgid "Email source"
-msgstr ""
+msgstr "Afzender"
 
 #: ./actions/mail.py:164
 msgid "Email using template variables."
-msgstr ""
+msgstr "Email gebruik verschillende templates."
 
 #: ./actions/mail.py:50
 msgid "Message"
-msgstr ""
+msgstr "Bericht"
 
 #: ./actions/mail.py:38
 msgid "Subject"
-msgstr ""
+msgstr "Onderwerp"
 
 #: ./actions/mail.py:39
 msgid "Subject of the message"
-msgstr ""
+msgstr "Onderwerp van het bericht"
 
 #: ./browser/portlets/interfaces.py:12
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ./actions/mail.py:42
 msgid "The email address that sends the email. If no email is provided here, it will use the portal from address."
-msgstr ""
+msgstr "Het email adres waar vanaf het bericht moet worden verstuurd. Als er geen emailadres is ingevoerd zal de sitenaam als afzender worden gebruikt."
 
 #: ./actions/mail.py:46
 msgid "The email where you want to send this message. To send it to different email addresses, just separate them with ,"
-msgstr ""
+msgstr "Het email adres naar u dit bericht wilt versturen. Als u meerdere adressen wilt selecteren, gebruik dan tussen de verschillende adressen een , (komma)"
 
 #: ./content/TemplatedDocument.py:98
 msgid "The page structure contains errors. Please contact the site manager. Content editors can see the error if they enable Catch errors checkbox on Edit > Template tab"
-msgstr ""
+msgstr "De pagina bevat errors. Neem contact op met uw webmaster. Content editors kunnen de error zien indien zij Chatch errors checkbox via Edit > Template tab hebben ingeschakeld"
 
 #: ./browser/portlets/interfaces.py:13
 msgid "The text to render. May include dynamic tags."
-msgstr ""
+msgstr "De te versturen tekst bevat mogelijk dynamische velden."
 
 #: ./actions/mail.py:51
 msgid "Type in here the message that you want to mail."
-msgstr ""
+msgstr "Typ hier het bericht wat u wilt versturen."
 
 #. Default: "A portlet which can display HTML text with dynamic tags"
 #: ./browser/portlets/templated.py:80
 msgid "description_static_portlet"
-msgstr ""
+msgstr "Een portlet welke HTML tekst met dynamische velden kan tonen."
 
 #. Default: "Catch errors"
 #: ./content/TemplatedDocument.py:51
 msgid "help_catch_errors"
-msgstr ""
+msgstr "Indien geselecteerd, zullen template errors worden opgespoord."
 
 #. Default: "If selected, template errors will provide debugging output."
 #: ./content/TemplatedDocument.py:54
 msgid "help_catch_errors_description"
-msgstr ""
+msgstr "Indien geselecteerd, zullen template errors worden opgespoord."
 
 #. Default: "Add templated text portlet"
 #: ./browser/portlets/templated.py:77
 msgid "title_add_templated_portlet"
-msgstr ""
+msgstr "Een portlet welke HTML weer kan geven met dynamische velden."
 
 #. Default: "Edit templated text portlet"
 #: ./browser/portlets/templated.py:91
 msgid "title_edit_static_portlet"
-msgstr ""
+msgstr "Bewerk template tekst portlet"
 
 #. Default: "Edit template code here if you are working with raw HTML - otherwise WYSIWYG editor might scramble the result. Leave empty if normal WYSIWYG input is used."
 #: ./content/TemplatedDocument.py:70
 msgid "unfiltered_template_description"
-msgstr ""
+msgstr "Bewerk hier de template code indien u werkt met HTML- anders zal de WYSIWYG editor mogelijk het resultaat verkeerd weergeven. U kunt dit leeglaten als de standaard WYSIWYG input is gebruikt."
 
 #. Default: "Unfiltered template code"
 #: ./content/TemplatedDocument.py:67
 msgid "unfiltered_template_label"
-msgstr ""
+msgstr "Ongefilterde template code"
 
