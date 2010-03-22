@@ -50,11 +50,13 @@ If you are outputting text which
 
 * is known to be UTF-8
 
-you must decode the input text in your template. For Plone, the following is known to UTF-8
+you must decode the input text in your template. For Plone, the following is known to be UTF-8
 
-* All Archetypes field accessors like Title(), Description(), 
+* All Archetypes text field accessors like Title(), Description() return UTF-8 bytestrings
 
-* portal_catalog entries like Title, Description 
+* portal_catalog entries like Title, Description reflect directly Archetypes values and contain UTF-8 bytestrings
+
+* For other strings, consult Plone source code 
 
 To output such text the decode must be performed. You can do this by directly calling decode()
 method of Python bytecode strings.
