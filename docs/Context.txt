@@ -24,7 +24,7 @@ Examples below.
 
 Print content title::
 
-   {{ context.Title() }}
+   {{ context.Title().decode("utf-8") }}
    
 Print document body text (HTML)::
    
@@ -39,6 +39,42 @@ not very useful::
 
    {{ context.setTitle('Moo the novel') }}
  
+Unicode and UTF-8
+------------------
+
+Jinja, like Python 2.x software usual, assumes all strings are either ASCII or Unicode.
+
+If you are outputting text which
+
+* contains international characters
+
+* is known to be UTF-8
+
+you must decode the input text in your template. For Plone, the following is known to UTF-8
+
+* All Archetypes field accessors like Title(), Description(), 
+
+* portal_catalog entries like Title, Description 
+
+To output such text the decode must be performed. You can do this by directly calling decode()
+method of Python bytecode strings.
+
+For function like accessors::
+
+    {{ context.Title().decode("utf-8") }}
+    
+For catalog brain data::
+
+    {{ brain.Title.decode("utf-8") }}
+        
+Otherwise you will see something like this when international characters are encountered::
+
+        Traceback (innermost last):
+          Module collective.templateengines.utils, line 104, in wrapExceptions
+          Module collective.templateengines.backends.jinja, line 104, in applier
+          Module jinja2.environment, line 705, in render
+          Module <template>, line 3, in top-level template code
+        UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
 	
 Traversing
 ----------
