@@ -44,7 +44,8 @@ setup(name='collective.easytemplate',
       install_requires=['setuptools',
                         'Jinja2',
                         'plone.portlet.static',
-                        'collective.templateengines'
+                        'collective.templateengines',
+                        'feedparser' # needed by RSS tag, could be soft dependency
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
