@@ -24,7 +24,7 @@ tests_require=['zope.testing']
 setup(name='collective.easytemplate',
       version=version,
       description="Simple scripting for Plone pages",
-      long_description=long_description,
+      long_description=long_description.encode("utf-8"),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         'Framework :: Plone',

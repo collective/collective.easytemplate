@@ -1,5 +1,11 @@
 Changelog
 ---------
+0.7.6 - current
+=================
+
+* Added note about how UTF-8 must be decoded in the templates
+
+* Encode package's long_description in UTF-8 to make setuptools happy
 
 0.7.5 - 0.7.6
 =============
