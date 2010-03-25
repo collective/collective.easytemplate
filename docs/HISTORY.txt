@@ -1,11 +1,11 @@
 Changelog
 ---------
-0.7.6 - current
+0.7.6 - 0.7.7
 =================
 
-* Added note about how UTF-8 must be decoded in the templates
+* Added note about how UTF-8 must be decoded in the templates [miohtama]
 
-* Encode package's long_description in UTF-8 to make setuptools happy
+* Encode package's long_description in UTF-8 to make setuptools happy [miohtama]
 
 0.7.5 - 0.7.6
 =============
