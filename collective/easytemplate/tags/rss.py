@@ -25,7 +25,7 @@ from collective.templateengines.interfaces import ITag
 
 from plone.app.portlets.portlets.rss import RSSFeed
 
-if feedparser != None
+if feedparser != None:
     ACCEPTED_FEEDPARSER_EXCEPTIONS = (feedparser.CharacterEncodingOverride, )
 
 __author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com>"
