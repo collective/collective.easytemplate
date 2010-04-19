@@ -139,13 +139,13 @@ class MailActionExecutor(object):
 action or enter an email in the portal properties'
             from_name = portal.getProperty('email_from_name')
             source = "%s <%s>" % (from_name, from_address)
-            
+
         message, errors = applyTemplate(templateContext, self.element.message, logger=logger)
         any_errors |= errors
         
         #subject_source = self.sanify_encoding(self.element.subject)
         subject_source = self.element.subject
-        
+
         subject, errors = applyTemplate(templateContext, subject_source, logger=logger)
         any_errors |= errors
         

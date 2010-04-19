@@ -65,6 +65,11 @@ class TemplatedTextField(TextField):
     def _getCooked(self, instance, text):
         """ Cook the view mode output. """
         
+        
+        # Convert all template code to unicode first
+        if type(text) == str:
+            text = text.decode("utf-8")
+        
         # expose_schema must be False, or we get recursive
         # loop here (expose schema tries to expose this field)
         context = getTemplateContext(instance, expose_schema=False)        
