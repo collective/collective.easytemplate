@@ -54,7 +54,7 @@ you must decode the input text in your template. For Plone, the following is kno
 
 * All Archetypes text field accessors like Title(), Description() return UTF-8 bytestrings
 
-* portal_catalog entries like Title, Description reflect directly Archetypes values and contain UTF-8 bytestrings
+* portal_catalog entries like Title, Description reflect directly Archetypes values and contain UTF-8 bytestrings
 
 * For other strings, consult Plone source code 
 
@@ -77,6 +77,11 @@ Otherwise you will see something like this when international characters are enc
           Module jinja2.environment, line 705, in render
           Module <template>, line 3, in top-level template code
         UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
+        
+.. note ::
+
+        As always, there is an exception to the rule. Content rule emails use UTF-8 
+        internally and in them variables must not be decoded.        
 	
 Traversing
 ----------
