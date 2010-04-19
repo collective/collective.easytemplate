@@ -7,7 +7,12 @@
 """
 import time
 from DateTime import DateTime
-import feedparser
+
+try:
+    import feedparser
+except:
+    # Plone 3.1
+    pass
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
