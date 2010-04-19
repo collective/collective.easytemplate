@@ -167,7 +167,8 @@ class TemplatedDocument(ATDocument):
         # piles of old undocumented codebase to figure this out.
         # I so hate Plone.
         transforms = getToolByName(self, 'portal_transforms')
-        output = transforms.convertTo("text/x-html-safe", output, context=self)
+        
+        output = transforms.convertTo("text/html", output, context=self)
                                                                                     
         return unicode(output).encode("utf-8")
 
