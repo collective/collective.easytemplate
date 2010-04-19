@@ -12,6 +12,7 @@ try:
     import feedparser
 except:
     # Plone 3.1
+    feedparser =None
     pass
 
 from Products.CMFCore.utils import getToolByName
@@ -24,7 +25,8 @@ from collective.templateengines.interfaces import ITag
 
 from plone.app.portlets.portlets.rss import RSSFeed
 
-ACCEPTED_FEEDPARSER_EXCEPTIONS = (feedparser.CharacterEncodingOverride, )
+if feedparser != None
+    ACCEPTED_FEEDPARSER_EXCEPTIONS = (feedparser.CharacterEncodingOverride, )
 
 __author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com>"
 __docformat__ = 'epytext'
