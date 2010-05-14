@@ -10,7 +10,7 @@ import Acquisition
 import zope
 from zope import interface
 from zope.interface import providedBy
-from zope.app.apidoc.presentation import getViews
+#from zope.app.apidoc.presentation import getViews
 from zope.component import getUtility, getAdapters
 from zope.component import getMultiAdapter, getSiteManager
 from zope.component import getUtility, queryUtility
