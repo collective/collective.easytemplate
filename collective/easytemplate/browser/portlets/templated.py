@@ -156,7 +156,7 @@ class TemplatedPortletAssignment(static.Assignment):
         self._expression = value
         
         # Create Expression object based on this text
-        self._expression_object = Expression(value)
+        self._expression_object = value and Expression(value)
         
     def _get_expression(self):
         return self._expression
