@@ -2,11 +2,13 @@
 
     Document which allows automatic template variables substitution.
     
+    http://mfabrik.com
+    
 """
-__author__ = """Mikko Ohtamaa <mikko.ohtamaa@twinapex.com>"""
-__docformat__ = 'plaintext'
-__copyright__ = "2009 Twinapex Research"
-__license__ = "GPL"
+__author__ = """Mikko Ohtamaa <mikko@mfabrik.com>"""
+__docformat__ = 'epytext'
+__copyright__ = "2009-2010 mFabrik Research Oy"
+__license__ = "GPL 2"
 
 import logging
 
@@ -95,7 +97,7 @@ TemplatedDocument_schema["text"].widget.description = "This document view suppor
 
 
 # Display this text instead of content if there are errors 
-ERROR_MESSAGE = _("The page structure contains errors. Please contact the site manager. Content editors can see the error if they enable Catch errors checkbox on Edit > Template tab")
+ERROR_MESSAGE = _("The page structure contains errors (template evalution failed or resulted to emptry string). Please contact the site manager. Content editors can see the error if they enable Catch errors checkbox on Edit > Template tab")
 
 class TemplatedDocument(ATDocument):
     """ A page allowing Cheetah template tags in Kupu text.
