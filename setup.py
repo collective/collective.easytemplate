@@ -23,7 +23,7 @@ tests_require=['zope.testing']
 
 setup(name='collective.easytemplate',
       version=version,
-      description="Simple scripting for Plone pages",
+      description="Dynamic HTML generation and scripting of pages, content rules, portlets and emails",
       long_description=long_description.encode("utf-8"),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
