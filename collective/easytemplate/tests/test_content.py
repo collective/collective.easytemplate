@@ -12,7 +12,6 @@ from collective.easytemplate.content.TemplatedDocument import ERROR_MESSAGE
 from collective.easytemplate.tests.base import EasyTemplateTestCase
 
 from collective.easytemplate import tagconfig, engine
-from collective.templateengines.backends import cheetah
 from collective.templateengines.utils import dump_messages
 
 class ContentTestCase(EasyTemplateTestCase):
@@ -26,11 +25,6 @@ class ContentTestCase(EasyTemplateTestCase):
         self.acl_users = getToolByName(self.portal, 'acl_users')
         self.types = getToolByName(self.portal, 'portal_types')
         
-        # old tests - were written  for cheetah
-        engine.setupEngine(cheetah.Engine())
-        
-        
-    
     def test_create(self):        
         self.loginAsPortalOwner()
         self.portal.invokeFactory("TemplatedDocument", "doc")
@@ -43,7 +37,7 @@ class ContentTestCase(EasyTemplateTestCase):
         tests = "Oh joy"
         doc.setCatchErrors(True)
         doc.setTitle(tests)
-        doc.setText("${title}")
+        doc.setText("{{ title }}")
         
         output = doc.getTemplatedText()
         messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
@@ -56,16 +50,16 @@ class ContentTestCase(EasyTemplateTestCase):
 
         
     def test_render_failed(self):
-        
         self.loginAsPortalOwner()
         self.portal.invokeFactory("TemplatedDocument", "doc")
         doc = self.portal.doc
         doc.setCatchErrors(True)
-        doc.setText("#if")
+        doc.setText("{% if")
         output = doc.getTemplatedText()
         
         
-        messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()        
+        messages = IStatusMessage(self.portal.REQUEST).showStatusMessages()  
+                
         self.assertEqual(len(messages), 1) # No template error messages
         self.assertEqual(output, ERROR_MESSAGE)
         
@@ -79,7 +73,7 @@ class ContentTestCase(EasyTemplateTestCase):
         doc = self.portal.folder.doc
         doc.setCatchErrors(True)
 
-        doc.setText('$list_folder($folder="folder")')
+        doc.setText('{{ list_folder(folder="folder") }}')
         #print doc.getRawText()                
         output = doc.getTemplatedText()
                 
@@ -112,7 +106,7 @@ class ContentTestCase(EasyTemplateTestCase):
         doc = self.portal.folder.doc
         doc.setCatchErrors(True)       
 
-        doc.setText('$list_folder($folder="folder", $extra_items="folder2")')
+        doc.setText('{{ list_folder(folder="folder", extra_items="folder2") }}')
         print doc.getRawText()                
         output = doc.getTemplatedText()
                 

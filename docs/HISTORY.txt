@@ -6,8 +6,11 @@ Changelog
 
 * Fixed Plone 4 incompatible import (was unneeded) [kroman0]
 
-* Made Plone 4 release [miohtama]
+* Made unit tests run on Plone 4 [miohtama]
 
+* Rooted out Cheetah dependency from unit tests [miohtama]
+
+* Made Plone 4 release [miohtama]
 
 0.7.6 - 0.7.7
 =================

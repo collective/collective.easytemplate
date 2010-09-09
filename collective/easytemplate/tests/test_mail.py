@@ -36,8 +36,6 @@ from Products.SecureMailHost.SecureMailHost import SecureMailHost
 from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.easytemplate import tagconfig, engine
-from collective.templateengines.backends import cheetah
-
 
 class DummyEvent(object):
     implements(IObjectEvent)

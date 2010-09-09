@@ -21,7 +21,8 @@ from zope.interface import alsoProvides
 from collective.easytemplate.tests.base import EasyTemplateTestCase
 
 class TestI18N(EasyTemplateTestCase):
-
+    """ Test i18n functions in the templates """
+    
     def afterSetUp(self):        
         EasyTemplateTestCase.afterSetUp(self)
         self.createContent()
@@ -35,9 +36,10 @@ class TestI18N(EasyTemplateTestCase):
 
         file = sys.modules[__name__].__file__
         path = os.path.abspath(os.path.join(os.path.dirname(file), "i18n_data", "i18n"))
-                
-        service = self.app.Control_Panel.TranslationService
-        service._load_catalog_file(os.path.join(path, "plone-fi.po"), path, language="fi", domain="plone")
+
+        # Note: This was Plone 2 (!) compatibility or something...
+        #service = self.app.Control_Panel.TranslationService
+        #service._load_catalog_file(os.path.join(path, "plone-fi.po"), path, language="fi", domain="plone")
                                     
     def test_get_current_language(self):
         """ Test arbitary portal queries. """

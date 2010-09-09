@@ -99,6 +99,11 @@ class EasyTemplateTestCase(ptc.PloneTestCase):
             # There should be no error messages
             self.assertNotEqual(len(messages), 0)
         else:
+            if len(messages) != 0:
+                # Friendly output of test time errors
+                # what went wrong with templates
+                print u"Got errors:" + unicode(messages)
+                
             self.assertEqual(len(messages), 0)
             
         return output    

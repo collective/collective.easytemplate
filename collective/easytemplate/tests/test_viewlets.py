@@ -77,7 +77,9 @@ class TestViewlets(EasyTemplateTestCase):
         val = self.runSnippet('Test {{ query({"portal_type" : "Templated Document"})  }}')
         
     def test_provider(self):
-        val = self.runSnippet('Test {{ provider("plone.leftcolumn")  }}')
+        
+        # Use provider: tal syntax to print out Plone <html> <head> section
+        val = self.runSnippet('Test {{ provider("plone.htmlhead")  }}')
         
     def test_bad_query(self):
         
