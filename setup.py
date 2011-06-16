@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read().decode("utf-8")
 
-version = '0.7.8'
+version = '0.7.9'
 
 long_description = read('docs', 'Introduction.txt') + \
     read('docs', 'TemplateEngine.txt') + \

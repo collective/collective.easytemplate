@@ -42,7 +42,7 @@ class TestSecurity(EasyTemplateTestCase):
         
     def test_allowed_traverse(self):
         val = self.runSnippet("Test {{ context.aq_parent.doc_published.Title() }}")
-        self.assertEqual(val, "<p>Test Published Title</p>")
+        self.assertEqual(val, "Test Published Title")
 
     def test_unallowed_traverse(self):
         """ doc is unpublished object """
@@ -95,14 +95,14 @@ class TestSecurity(EasyTemplateTestCase):
     def test_access_private_as_admin(self):
         """ Template which prefers to unpublished content should be available as admin"""
         val = self.runSnippet("Test {{ context.aq_parent.doc.Title() }}", admin=True)        
-        self.assertEqual(val, "<p>Test Unpublished</p>")
+        self.assertEqual(val, "Test Unpublished")
         
     def test_set_title_as_admin(self):
         """ Call a setter method when logged in as admin.
         
         This should be allowed, though not useful."""
         val = self.runSnippet("Test {{ context.aq_parent.setTitle('abc') }}", admin=True)                        
-        self.assertEqual(val, "<p>Test None</p>")
+        self.assertEqual(val, "Test None")
 
 
 def test_suite():

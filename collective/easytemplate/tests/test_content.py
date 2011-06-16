@@ -14,6 +14,12 @@ from collective.easytemplate.tests.base import EasyTemplateTestCase
 from collective.easytemplate import tagconfig, engine
 from collective.templateengines.utils import dump_messages
 
+def escape(str):
+    """
+    """
+    # Currently we do not wrap anything to <p>
+    return str
+
 class ContentTestCase(EasyTemplateTestCase):
     """ Check that Templated Document functions properly. """
     
@@ -46,7 +52,7 @@ class ContentTestCase(EasyTemplateTestCase):
             for m in messages: print str(m.message)
             
         self.assertEqual(len(messages), 0) # No template error messages
-        self.assertEqual(str(output), "<p>" + tests + "</p>") # At has automatic HTML wrap
+        self.assertEqual(str(output), escape(tests)) # At has automatic HTML wrap
 
         
     def test_render_failed(self):

@@ -1,6 +1,19 @@
 Changelog
 ---------
 
+0.7.8 - 0.7.9
+=================
+
+* Plone 4.1 compatible [miohtama]
+
+* Fixed raw HTML output compatibility with latest hot fixes. Note: this add-on is no longer
+  safe for untrusted users to use. [miohtama]
+  
+* Do not wrap HTML output to <p> tag  [miohtama]
+
+* Do not try to run i18n tests if LinguaPlone is not present  [miohtama]
+
+
 0.7.7 - 0.7.8
 =================
 

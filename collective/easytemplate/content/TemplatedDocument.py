@@ -168,10 +168,12 @@ class TemplatedDocument(ATDocument):
         # I am not going to spent another night going through
         # piles of old undocumented codebase to figure this out.
         # I so hate Plone.
-        transforms = getToolByName(self, 'portal_transforms')
         
-        output = transforms.convertTo("text/html", output, context=self)
-                                                                                    
+        # XXX 2011-06: latest hot fixes to portal_transforms screw this
+        
+        #transforms = getToolByName(self, 'portal_transforms')                
+        #output = transforms.convertTo("text/html", output, context=self)
+                                                                                                                                                    
         return unicode(output).encode("utf-8")
 
     security.declareProtected(View, 'getTemplatedText')    

@@ -89,7 +89,8 @@ class ViewTag(object):
         
        
         if function == "__call__":        
-            return view()
+            html = view()
+            return html
         else:
             func = getattr(view, function)    
             return func()

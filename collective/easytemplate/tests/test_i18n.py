@@ -11,7 +11,7 @@
 
 __author__ = """Mikko Ohtamaa <mikko@redinnovation.com>"""
 __docformat__ = 'plaintext'
-__copyright__ = "2008 Red Innovation Ltd."
+__copyright__ = "2008-2011 mFabrik Research Oy"
 __license__ = "GPL"
 
 import os, sys
@@ -43,8 +43,9 @@ class TestI18N(EasyTemplateTestCase):
                                     
     def test_get_current_language(self):
         """ Test arbitary portal queries. """
-        val = self.runSnippet('Test {{ current_language()  }}')
-        self.assertEqual(val, "<p>Test en</p>")
+            
+        val = self.runSnippet('Test {{ current_language() }}')
+        self.assertEqual(val, "Test en")
         
     def test_translate(self):
         """ Test arbitary portal queries. """
@@ -58,7 +59,7 @@ class TestI18N(EasyTemplateTestCase):
 
         val = self.runSnippet('Test {{ translate("box_more_news_link", "plone", "fi")  }}')
 
-        self.assertEqual(val, "<p>Test Lisää uutisia...</p>")
+        self.assertEqual(val, "Test Lisää uutisia...")
 
     def test_translate_default(self):
         """ Test translating a missing catalog entry, defaulting to given english string. """
@@ -72,11 +73,19 @@ class TestI18N(EasyTemplateTestCase):
 
         val = self.runSnippet('Test {{ translate("missing_id", default="Foobar")  }}')
 
-        self.assertEqual(val, "<p>Test Foobar</p>")
+        self.assertEqual(val, "Test Foobar")
 
 
 def test_suite():
     from unittest import TestSuite, makeSuite
+    
     suite = TestSuite()
+    
+    try:
+        import Products.LinguaPlone
+    except ImportError:
+        # CAn't run without LinguaPlone
+        return suite
+    
     suite.addTest(makeSuite(TestI18N))
     return suite
