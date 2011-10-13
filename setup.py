@@ -52,7 +52,8 @@ setup(name='collective.easytemplate',
       extras_require=dict(tests=tests_require),
       test_suite = 'collective.easytemplate.tests',
       entry_points="""
-      # -*- entry_points -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       paster_plugins = ["ZopeSkel"],
       )
