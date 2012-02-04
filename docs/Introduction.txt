@@ -11,8 +11,6 @@ Templating is a way to add simple programming logic to text output.
 This products adds or enhances templating supports on various parts
 of Plone site.
 
-Read more about this solution in this `blog entry <http://blog.twinapex.fi/2009/07/30/putting-views-like-sitemap-into-plone-content-tree-using-easy-template-add-on/>`_.
-
 Motivation 
 ----------
 
@@ -62,6 +60,7 @@ will result to the output:
   
   * `Chemistry <http://example.example>`_
 
+ `More information and examples <http://opensourcehacker.com/2009/07/30/putting-views-like-sitemap-into-plone-content-tree-using-easy-template-add-on/>`_.
 
 Installation 
 ------------
@@ -93,17 +92,11 @@ Python eggs Cheetah, Jinja2 and Products.LinguaPlone must be installed in order 
 Authors
 -------
 
-`mFabrik Research Oy <mailto:info@mfabrik.com>`_ - Python and Plone professionals for hire.
+* `Mikko Ohtamaa, opensourcehacker.com <http://opensourcehacker.com>`_ 
 
-* `mFabrik web site <http://mfabrik.com>`_ 
+* Hans-Peter Locher [mr_savage]
 
-* `mFabrik mobile site <http://mfabrik.mobi>`_ 
-
-* `Blog <http://blog.mfabrik.com>`_
-
-* `More about Plone <http://mfabrik.com/technology/technologies/content-management-cms/plone>`_ 
-
-Hans-Peter Locher [mr_savage]
+* [jensens]
 
 Sponsorship
 ------------
