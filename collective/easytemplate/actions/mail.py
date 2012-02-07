@@ -115,7 +115,7 @@ class MailActionExecutor(object):
             raise ValueError("Bad recipients value:" + str(self.element.recipients.encode("utf-8")))
             
         emails = recipients.strip().split(",")
-        emails = [ email for email in emails if email != None ]                
+        emails = [ email for email in emails if (email != None and email != '')]                
         recipients = [str(email.strip()) for email in emails]
         
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
@@ -168,11 +168,11 @@ action or enter an email in the portal properties'
         for email_recipient in recipients:
             
             assert len(email_recipient.strip()) > 0, "Email recipient is empty, all recipients:" + str(recipients)
-            
+
             mailhost.secureSend(message, email_recipient, source,
                                 subject=subject, subtype='plain',
-                                charset=email_charset, debug=False,
-                                From=source)
+                                charset=email_charset, debug=False)
+
         return True
 
 class MailAddForm(AddForm):

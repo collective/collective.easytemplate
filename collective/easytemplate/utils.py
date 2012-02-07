@@ -86,7 +86,10 @@ def applyTemplate(context, string, logger=None):
     """
     
     if logger:
-        logger.debug("Applying template:" + string)
+        if string is not None:
+            logger.debug("Applying template:" + string)
+        else:
+            logger.debug("Applying template:<empty string>")
         
     engine  = getEngine()
     
