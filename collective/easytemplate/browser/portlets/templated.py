@@ -141,7 +141,7 @@ class TemplatedPortletAssignment(static.Assignment):
     expression = None
     
     def __init__(self, header=u"", text=u"", omit_border=False, footer=u"",
-                 more_url='', hide=False, expression=""):
+                 more_url='', hide=False, expression="", **extra):
         self.header = header
         self.text = text
         self.omit_border = omit_border
