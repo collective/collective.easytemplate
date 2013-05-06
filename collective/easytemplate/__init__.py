@@ -7,7 +7,7 @@ from Products.Archetypes import atapi
 from Products.CMFCore import utils as core_utils
 from Products.CMFCore.permissions import setDefaultRoles
 
-from content import TemplatedDocument
+from collective.easytemplate.content import TemplatedDocument
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
@@ -25,7 +25,7 @@ def initialize(context):
     # during ZCML processing, but we do it here again to be explicit. Of
     # course, even if we import the module several times, it is only run
     # once.
-    
+
     content_types, constructors, ftis = atapi.process_types(
         atapi.listTypes(config.PROJECTNAME),
         config.PROJECTNAME)
@@ -43,8 +43,4 @@ def initialize(context):
             permission         = config.ADD_CONTENT_PERMISSIONS[atype.portal_type],
             extra_constructors = (constructor,),
             ).initialize(context)
-            
 
-
-
-    

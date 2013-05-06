@@ -1,8 +1,14 @@
 Changelog
 ---------
 
+0.8.0
+-----
+
+* plone 4.2/4.3 fixes
+  [vangheem]
+
 0.7.9 - 0.7.10 
-=================
+==============
 
 * Fix for an empty string passed in utils.py(applyTemplate) [tkimnguyen]
 
@@ -13,7 +19,7 @@ Changelog
 
 
 0.7.8 - 0.7.9
-=================
+=============
 
 * Plone 4.1 compatible [miohtama]
 
@@ -26,7 +32,7 @@ Changelog
 
 
 0.7.7 - 0.7.8
-=================
+=============
 
 * Fixed Plone 4 incompatible import (was unneeded) [kroman0]
 
@@ -37,7 +43,7 @@ Changelog
 * Made Plone 4 release [miohtama]
 
 0.7.6 - 0.7.7
-=================
+=============
 
 * Added note about how UTF-8 must be decoded in the templates [miohtama]
 
@@ -107,26 +113,26 @@ Changelog
 * Install also updated collective.templateengines
 
 0.7 - 0.7.1
-=============
+===========
 
 * Added outgoing email example
 
 * Some README.txt fixes
 
 0.3 - 0.7
-=============
+=========
 
 * Major rework
 
 0.3
-=============
+===
 
 * Added Templated Portlet
 
 * Refactored error output and logging
 
 0.2
-=============
+===
 
 * Added templated email content rule action (plone.action.TemplatedMail)
 
@@ -139,7 +145,7 @@ Changelog
 * Expose all AT schema variables as top level template variables - Cheetah couldn't traverse Zope objects
 
 0.1
-=============
+===
 
 * Initial release
 
