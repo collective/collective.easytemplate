@@ -3,7 +3,8 @@
            xmlns:plone="http://namespaces.plone.org/plone">
 
     <include package="plone.app.portlets" />
-        
+    <include package="Products.CMFCore" />
+    
 	<plone:portlet
         name="collective.easytemplate.TemplatedPortlet"
         interface=".interfaces.ITemplatedPortlet"
