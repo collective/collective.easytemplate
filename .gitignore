@@ -6,11 +6,6 @@
 .DS_Store
 .installed.cfg
 .mr.developer.cfg
-library-settings.txt
-log.html
-output.xml
-report.html
-selenium*
 .project
 .pydevproject
 .settings/
@@ -23,12 +18,4 @@ include/
 lib/
 local.cfg
 parts/
-src/plone.app.blocks/
-src/plone.app.deco/
-src/plone.app.imaging/
-src/plone.app.intid/
-src/plone.app.stagingbehavior/
-src/plone.app.tiles/
-src/plone.scale/
-src/plone.tiles/
 var/
